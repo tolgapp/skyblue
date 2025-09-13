@@ -19,6 +19,7 @@ export type HomeProps = {
   formData: FormDataProps;
   setFormData: React.Dispatch<React.SetStateAction<FormDataProps>>;
 };
+export type ShowTariffsProps = HomeProps;
 
 export type FormDataProps = {
   location: string;

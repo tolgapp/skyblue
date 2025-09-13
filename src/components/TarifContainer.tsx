@@ -5,7 +5,6 @@ const TarifContainer: React.FC<TarifContainerProps> = ({
   consumption,
   pricePerKwh,
   fixCosts,
-  location,
 }) => {
   
   const price = tariff

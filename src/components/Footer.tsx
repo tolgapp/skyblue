@@ -4,7 +4,6 @@ const Footer = () => {
   return (
     <footer className="flex w-full px-18 bg-blue-400 justify-between items-start p-8 mt-16 h-60 text-white">
       <Logo />
-
       <div className="flex space-x-16">
         <div className="flex flex-col space-y-2">
           <a href="#" className="hover:underline">
@@ -17,7 +16,6 @@ const Footer = () => {
             Contact
           </a>
         </div>
-
         <div className="flex flex-col space-y-2">
           <a href="#" className="hover:underline">
             Terms of Service
@@ -29,7 +27,6 @@ const Footer = () => {
             Help Center
           </a>
         </div>
-
         <div className="flex flex-col space-y-2">
           <a href="#" className="hover:underline">
             Sustainability

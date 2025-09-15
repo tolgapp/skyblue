@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export type FormDataProps = {
@@ -15,10 +14,7 @@ type CalculatorProps = {
 
 const energyOptions = ['Electricity', 'Gas', 'Kombi'];
 
-const Calculator = ({
-  formData,
-  setFormData,
-}: CalculatorProps) => {
+const Calculator = ({ formData, setFormData }: CalculatorProps) => {
   const navigate = useNavigate();
 
   const getUserInputs = (e: React.FormEvent) => {
@@ -34,7 +30,11 @@ const Calculator = ({
       energyType: formData.energyType,
     });
 
-    navigate(`/findtariff?${queryParams.toString()}`);
+    if (formData.energyType === 'Electricity') {
+      navigate(`/findtariff?${queryParams.toString()}`);
+    } else {
+      console.log('Currently only Electricity available');
+    }
   };
 
   const submitted =

@@ -3,6 +3,7 @@
 :root {
   color: rgba(255, 255, 255, 0.87);
   background-color: #1c398e;
+  font-family: OpenSansVar;
 }
 
 @font-face {

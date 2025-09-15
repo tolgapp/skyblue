@@ -25,6 +25,8 @@ const TariffDetails = ({ tariffs, id }: ProductDetailsProps) => {
     )
     .toFixed(2);
 
+  const yearlyPrice = (Number(calculatedPrice) * 12).toFixed(2);
+
   return (
     <section className="w-full mx-auto bg-white rounded-xl shadow-lg p-8 border border-gray-200">
       <h2 className="text-6xl font-bold text-blue-900 mb-4">{tariff.name}</h2>
@@ -35,9 +37,17 @@ const TariffDetails = ({ tariffs, id }: ProductDetailsProps) => {
             {tariff.duration} {tariff.duration === 1 ? 'month' : 'months'}
           </p>
         </div>
-        <div>
-          <p className="text-md text-gray-500 mb-1">Estimated Monthly Price</p>
-          <p className="text-4xl font-semibold">{calculatedPrice} €</p>
+        <div className="flex justify-between">
+          <div>
+            <p className="text-md text-gray-500 mb-1">
+              Estimated monthly price
+            </p>
+            <p className="text-4xl font-semibold">{calculatedPrice} €</p>
+          </div>
+          <div>
+            <p className="text-md text-gray-500 mb-1">Estimated yearly price</p>
+            <p className="text-4xl font-semibold">{yearlyPrice} €</p>
+          </div>
         </div>
         <div>
           <p className="text-sm text-gray-500 mb-1">Includes Bonus</p>

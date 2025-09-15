@@ -39,3 +39,11 @@ export type ProductDetailsProps = {
   id: number;
   buttonAllowed: string;
 };
+
+export type InputFieldProps = {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+};

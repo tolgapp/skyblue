@@ -3,7 +3,7 @@ import type { ShowTariffsProps } from '../types';
 import Back from './Back';
 import TarifContainer from './TarifContainer';
 import { useSearchParams } from 'react-router-dom';
-import EnergyBenefits from './EnergyBenefits';
+import EnergyBenefitsShorts from './EnergyBenefitsShort';
 import TariffDetails from './TariffDetails';
 
 const tariffs = [
@@ -160,7 +160,7 @@ const ShowTariffs = ({ formData, setFormData }: ShowTariffsProps) => {
           ) : (
             <>
               <span className="text-base font-medium">
-                <strong>{localConsumption}</strong> kwh
+                <strong>{localConsumption}</strong> kWh
               </span>
               <button
                 className="text-sm bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-lg border"
@@ -195,7 +195,7 @@ const ShowTariffs = ({ formData, setFormData }: ShowTariffsProps) => {
           buttonAllowed={buttonAllowed}
         />
       )}
-      <EnergyBenefits marginX={0} marginTop={1} />
+      <EnergyBenefitsShorts marginX={0} marginTop={1} />
     </main>
   );
 };

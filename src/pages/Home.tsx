@@ -8,7 +8,7 @@ const Home: React.FC<HomeProps> = ({ formData, setFormData }) => {
     <main className="bg-blue-900 flex flex-col gap-8">
       <ImageWithTitle />
       <Calculator formData={formData} setFormData={setFormData} />
-      <EnergyBenefits marginTop={10} marginX={18}/>
+      <EnergyBenefits marginTop={10} marginX={18} />
     </main>
   );
 };

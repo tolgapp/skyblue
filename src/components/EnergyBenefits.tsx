@@ -24,9 +24,14 @@ const benefits = [
   },
 ];
 
-const EnergyBenefits = () => {
+interface EnergyBenefitsProps {
+  marginX: number;
+  marginTop: number;
+}
+
+const EnergyBenefits = ({ marginX, marginTop }: EnergyBenefitsProps) => {
   return (
-    <div className="grid grid-cols-1 mt-10 mx-18 md:grid-cols-3 gap-6 p-10 bg-blue-400 rounded-xl">
+    <div className={`grid grid-cols-1 mt-${marginTop} mx-${marginX} md:grid-cols-3 gap-6 p-10 bg-blue-400 rounded-xl`}>
       {benefits.map((benefit, index) => (
         <div
           key={index}
@@ -35,7 +40,7 @@ const EnergyBenefits = () => {
           {benefit.icon}
           <h3 className="text-xl font-bold mt-4 text-blue-950">{benefit.title}</h3>
           <p className="text-gray-600 mt-2">{benefit.description}</p>
-          <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+          <button className="mt-4 bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
             {benefit.buttonText}
           </button>
         </div>

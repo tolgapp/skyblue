@@ -5,34 +5,57 @@ const TarifContainer: React.FC<TarifContainerProps> = ({
   consumption,
   pricePerKwh,
   fixCosts,
+  fixedFlexibleCosts,
+  setIsClicked,
+  setSelectedTariffId,
+  id,
 }) => {
-  
   const price = tariff
-    .calculatePrice(Number(consumption), pricePerKwh, fixCosts)
+    .calculatePrice(
+      Number(consumption),
+      pricePerKwh,
+      tariff.duration >= 12 ? fixCosts : fixedFlexibleCosts
+    )
     .toFixed(2);
 
+  const hasBonus = tariff.duration >= 12;
+
   return (
-    <div className="bg-white shadow-lg border border-gray-200 rounded-lg p-6 flex flex-col justify-between h-full min-w-80 mx-auto">
-      <h2 className="text-4xl font-bold text-blue-900 mb-4">
-        {tariff.name}
-      </h2>
-      <div className="flex flex-col gap-5 mt-4">
-        <p className="text-lg text-gray-700">
-          {tariff.duration} {tariff.duration <= 1 ? 'Month' : 'Months'}
+    <div className="bg-white shadow-md border border-gray-200 rounded-xl p-6 flex flex-col justify-between h-full w-full max-w-sm mx-auto transition-all hover:shadow-xl">
+      <h2 className="text-2xl font-bold text-blue-900 mb-2">{tariff.name}</h2>
+      <div className="flex flex-col gap-4 mt-2">
+        <p className="text-gray-600 text-sm">
+          Contract duration:
+          <span className="font-bold pl-2 underline underline-offset-4">
+            {tariff.duration} {tariff.duration === 1 ? 'month' : 'months'}
+          </span>
         </p>
-        <div className="flex items-baseline space-x-2">
-          <h4 className="text-xl text-gray-900">Price:</h4>
-          <span className="text-3xl font-semibold text-blue-600">
+        {hasBonus ? (
+          <div className="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-md w-fit font-medium">
+            Save 10% on your annual energy costs
+          </div>
+        ) : (
+          <div className="opacity-0 text-sm py-1 font-medium">Placeholder</div>
+        )}
+        <div className="flex items-baseline gap-2 mt-2">
+          <span className="text-lg text-gray-700">Price:</span>
+          <span className="text-3xl font-semibold text-blue-700">
             {price} €
           </span>
         </div>
-        <p className="text-sm text-gray-600">/ per month</p>
-
-        <button className="px-6 py-2 bg-blue-900 text-white font-semibold rounded-lg hover:bg-blue-800 mt-4 transition duration-300 ease-in-out transform hover:scale-105">
+        <p className="text-sm text-gray-500 -mt-2">per month</p>
+        <button
+          onClick={() => {
+            setSelectedTariffId(id);
+            setIsClicked(true);
+          }}
+          className="mt-4 px-5 py-2 bg-blue-800 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-200 cursor-pointer"
+        >
           Check details
         </button>
       </div>
     </div>
   );
 };
+
 export default TarifContainer;

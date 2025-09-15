@@ -5,6 +5,11 @@
   background-color: #1c398e;
 }
 
+@font-face {
+  font-family: 'OpenSansVar';
+  src: url('./assets/font/openSansVar.ttf') format('truetype');
+}
+
 .text-shadow {
   text-shadow: 0.22rem 0.22rem 0.2rem rgba(0, 0, 0, 0.524);
 }

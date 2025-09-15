@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export type FormDataProps = {
@@ -14,7 +15,10 @@ type CalculatorProps = {
 
 const energyOptions = ['Electricity', 'Gas', 'Kombi'];
 
-const Calculator = ({ formData, setFormData }: CalculatorProps) => {
+const Calculator = ({
+  formData,
+  setFormData,
+}: CalculatorProps) => {
   const navigate = useNavigate();
 
   const getUserInputs = (e: React.FormEvent) => {
@@ -23,8 +27,14 @@ const Calculator = ({ formData, setFormData }: CalculatorProps) => {
       ...formData,
       formSubmitted: true,
     });
-   
-    navigate('/findtariff');
+
+    const queryParams = new URLSearchParams({
+      location: formData.location,
+      consumption: formData.consumption,
+      energyType: formData.energyType,
+    });
+
+    navigate(`/findtariff?${queryParams.toString()}`);
   };
 
   const submitted =
@@ -33,7 +43,7 @@ const Calculator = ({ formData, setFormData }: CalculatorProps) => {
     formData.consumption > '100';
 
   return (
-    <div className="flex flex-col justify-center mx-18 bg-blue-400 h-fit pt-8 pb-8 px-10 rounded-xl ">
+    <div className="flex flex-col justify-center mx-18 bg-blue-400 h-fit pt-8 pb-8 px-10 rounded-xl">
       <form onSubmit={getUserInputs}>
         <div className="grid grid-cols-3 gap-5 grid-rows-1">
           <div className="flex flex-col gap-4">

@@ -4,6 +4,8 @@ import ShowTariffs from './components/ShowTariffs';
 import { Route, Routes } from 'react-router-dom';
 import type { FormDataProps } from './components/Calculator';
 import Home from './pages/Home';
+import Footer from './components/Footer';
+import UserTariffSignUp from './components/UserTariffSignUp';
 
 const App = () => {
   const [formData, setFormData] = useState<FormDataProps>({
@@ -27,7 +29,9 @@ const App = () => {
             <ShowTariffs formData={formData} setFormData={setFormData} />
           }
         />
+        <Route path="/tariff-signup" element={<UserTariffSignUp />} />
       </Routes>
+      <Footer />
     </>
   );
 };

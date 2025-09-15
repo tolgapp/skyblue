@@ -10,8 +10,9 @@ const ImageWithTitle = () => {
           className="w-full h-96 sm:h-[46rem] object-cover "
         />
         <div className="absolute text-white top-1/2 pb-16 sm:pb-8 z-20 text-left max-w-[51rem] flex gap-2 flex-col mx-18">
-          <h2 className="text-4xl sm:text-7xl font-bold text-shadow">
-            <span className="text-blue-700">LOVE</span> NATURE.
+          <h2 className="text-4xl sm:text-7xl font-bold text-shadow font-[OpenSansVar]">
+            <span className="text-blue-700 font-[OpenSansVar] font-black">LOVE</span>{' '}
+            NATURE.
           </h2>
           <p className="text-2xl sm:text-3xl text-shadow">
             Clean and renewable energy from wind turbines.

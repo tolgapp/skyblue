@@ -1,24 +1,26 @@
+import { useTariff } from '../context/TariffProvider';
+import { useUserInputs } from '../context/UserInputsProvider';
+import { usePrices } from '../context/PriceProvider';
 import type { TarifContainerProps } from '../types';
 
-const TarifContainer: React.FC<TarifContainerProps> = ({
-  tariff,
-  consumption,
-  pricePerKwh,
-  fixCosts,
-  fixedFlexibleCosts,
-  setIsClicked,
-  setSelectedTariffId,
-  id,
-}) => {
+const TarifContainer: React.FC<TarifContainerProps> = ({ tariff }) => {
+  const { setSelectedTariff } = useTariff();
+  const { userInput } = useUserInputs();
+  const { pricePerKwh, fixCosts, fixedFlexibleCosts } = usePrices();
+
   const price = tariff
     .calculatePrice(
-      Number(consumption),
+      Number(userInput.consumption),
       pricePerKwh,
       tariff.duration >= 12 ? fixCosts : fixedFlexibleCosts
     )
     .toFixed(2);
 
   const hasBonus = tariff.duration >= 12;
+
+  const handleSelect = () => {
+    setSelectedTariff(tariff);
+  };
 
   return (
     <div className="bg-white shadow-md border border-gray-200 rounded-xl p-6 flex flex-col justify-between h-full w-full max-w-sm mx-auto transition-all hover:shadow-xl">
@@ -45,10 +47,7 @@ const TarifContainer: React.FC<TarifContainerProps> = ({
         </div>
         <p className="text-sm text-gray-500 -mt-2">per month</p>
         <button
-          onClick={() => {
-            setSelectedTariffId(id);
-            setIsClicked(true);
-          }}
+          onClick={handleSelect}
           className="mt-4 px-5 py-2 bg-blue-800 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-200 cursor-pointer"
         >
           Check details

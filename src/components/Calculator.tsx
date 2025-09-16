@@ -1,36 +1,24 @@
 import { useNavigate } from 'react-router-dom';
-
-export type FormDataProps = {
-  location: string;
-  energyType: string;
-  consumption: string;
-  formSubmitted: boolean;
-};
-
-type CalculatorProps = {
-  formData: FormDataProps;
-  setFormData: React.Dispatch<React.SetStateAction<FormDataProps>>;
-};
+import { useUserInputs } from '../context/UserInputsProvider';
 
 const energyOptions = ['Electricity', 'Gas', 'Kombi'];
 
-const Calculator = ({ formData, setFormData }: CalculatorProps) => {
+const Calculator = () => {
   const navigate = useNavigate();
+  const { userInput, setUserInput } = useUserInputs();
 
   const getUserInputs = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormData({
-      ...formData,
-      formSubmitted: true,
-    });
 
     const queryParams = new URLSearchParams({
-      location: formData.location,
-      consumption: formData.consumption,
-      energyType: formData.energyType,
+      location: userInput.location,
+      consumption: userInput.consumption,
+      energyType: userInput.energyType,
     });
 
-    if (formData.energyType === 'Electricity') {
+    setUserInput({ ...userInput, formSubmitted: true });
+
+    if (userInput.energyType === 'Electricity') {
       navigate(`/findtariff?${queryParams.toString()}`);
     } else {
       console.log('Currently only Electricity available');
@@ -38,9 +26,9 @@ const Calculator = ({ formData, setFormData }: CalculatorProps) => {
   };
 
   const submitted =
-    formData.location.length === 5 &&
-    formData.energyType.length > 0 &&
-    formData.consumption > '100';
+    userInput.location.length === 5 &&
+    userInput.energyType.length > 0 &&
+    userInput.consumption > '100';
 
   return (
     <div className="flex flex-col justify-center mx-18 bg-blue-400 h-fit pt-8 pb-8 px-10 rounded-xl">
@@ -51,17 +39,16 @@ const Calculator = ({ formData, setFormData }: CalculatorProps) => {
               Location
             </label>
             <input
-              type="number"
+              type="text"
               id="location1"
               name="location1"
               placeholder="Your postalcode"
               className="border rounded-lg p-4"
               maxLength={5}
-              minLength={5}
-              value={formData.location}
-              onChange={(e) =>
-                setFormData({ ...formData, location: e.target.value })
-              }
+              value={userInput.location}
+              onChange={(e) => {
+                setUserInput({ ...userInput, location: e.target.value });
+              }}
             />
           </div>
           <div className="flex flex-col gap-4">
@@ -73,15 +60,15 @@ const Calculator = ({ formData, setFormData }: CalculatorProps) => {
                 <button
                   type="button"
                   key={type}
-                  value={formData.energyType}
+                  value={userInput.energyType}
                   onClick={(e) =>
-                    setFormData({
-                      ...formData,
+                    setUserInput({
+                      ...userInput,
                       energyType: (e.target as HTMLButtonElement).innerText,
                     })
                   }
                   className={`cursor-pointer h-13 px-6 rounded-lg ${
-                    type === formData.energyType
+                    type === userInput.energyType
                       ? 'bg-blue-900 text-white'
                       : 'bg-white  text-blue-400'
                   }`}
@@ -101,9 +88,9 @@ const Calculator = ({ formData, setFormData }: CalculatorProps) => {
               name="kwh"
               placeholder="Your yearly consumption"
               className="border rounded-lg p-4"
-              value={formData.consumption}
+              value={userInput.consumption}
               onChange={(e) =>
-                setFormData({ ...formData, consumption: e.target.value })
+                setUserInput({ ...userInput, consumption: e.target.value })
               }
             />
           </div>

@@ -1,8 +1,7 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import type { ProductDetailsProps } from '../types';
 
-const TariffDetails = ({ tariffs, id }: ProductDetailsProps) => {
-  const tariff = tariffs.find((t) => t.duration === id);
+const  TariffDetails = ({ tariff }: ProductDetailsProps) => {
   const [searchParams] = useSearchParams();
   const urlConsumption = searchParams.get('consumption') || '';
 

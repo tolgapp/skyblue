@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import type { ShowTariffsProps } from '../types';
 import Back from './Back';
 import TarifContainer from './TarifContainer';
 import { useSearchParams } from 'react-router-dom';
 import EnergyBenefitsShorts from './EnergyBenefitsShort';
 import TariffDetails from './TariffDetails';
+import { useTariff } from '../context/TariffProvider';
+import { useUserInputs } from '../context/UserInputsProvider';
 
 const tariffs = [
   {
@@ -48,43 +49,40 @@ const tariffs = [
   },
 ];
 
-const ShowTariffs = ({ formData, setFormData }: ShowTariffsProps) => {
-  const { consumption, location } = formData;
-  const pricePerKwh = 0.29;
-  const fixCosts = 9.99;
-  const fixedFlexibleCosts = 14.99;
+const ShowTariffs = () => {
+  const { selectedTariff } = useTariff();
+  const { userInput, setUserInput } = useUserInputs();
 
   const [isEditingPostalCode, setIsEditingPostalCode] = useState(false);
   const [isEditingConsumption, setIsEditingConsumption] = useState(false);
-  const [localPostalCode, setLocalPostalCode] = useState(location);
-  const [localConsumption, setLocalConsumption] = useState(consumption);
-  const [selectedTariffId, setSelectedTariffId] = useState<number | null>(null);
+  const [localPostalCode, setLocalPostalCode] = useState(userInput.location);
+  const [localConsumption, setLocalConsumption] = useState(
+    userInput.consumption
+  );
 
   const [searchParams, setSearchParams] = useSearchParams();
   const urlLocation = searchParams.get('location') || '';
   const urlConsumption = searchParams.get('consumption') || '';
   const urlEnergyType = searchParams.get('energyType') || '';
-  const [isClicked, setIsClicked] = useState(false);
-  const buttonAllowed = 'YES';
 
   useEffect(() => {
-    setLocalPostalCode(formData.location);
-    setLocalConsumption(formData.consumption);
-  }, [formData.location, formData.consumption]);
+    setLocalPostalCode(userInput.location);
+    setLocalConsumption(userInput.consumption);
+  }, [userInput.location, userInput.consumption]);
 
   useEffect(() => {
-    if (!formData.formSubmitted && urlLocation && urlConsumption) {
-      setFormData({
+    if (!userInput.formSubmitted && urlLocation && urlConsumption) {
+      setUserInput({
         location: urlLocation,
         consumption: urlConsumption,
         energyType: urlEnergyType,
         formSubmitted: true,
       });
     }
-  }, [urlLocation, urlConsumption, formData, setFormData]);
+  }, [urlLocation, urlConsumption, userInput, setUserInput]);
 
   const changeLocation = () => {
-    setFormData((prev) => ({ ...prev, location: localPostalCode }));
+    setUserInput((prev) => ({ ...prev, location: localPostalCode }));
     const updatedParams = new URLSearchParams(searchParams);
     updatedParams.set('location', localPostalCode);
     setSearchParams(updatedParams);
@@ -92,7 +90,7 @@ const ShowTariffs = ({ formData, setFormData }: ShowTariffsProps) => {
   };
 
   const changeConsumption = () => {
-    setFormData((prev) => ({ ...prev, consumption: localConsumption }));
+    setUserInput((prev) => ({ ...prev, consumption: localConsumption }));
     const updatedParams = new URLSearchParams(searchParams);
     updatedParams.set('consumption', localConsumption);
     setSearchParams(updatedParams);
@@ -175,26 +173,12 @@ const ShowTariffs = ({ formData, setFormData }: ShowTariffsProps) => {
       <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 p-10 rounded-lg bg-blue-400 h-fit">
         {tariffs.map((tariff) => (
           <TarifContainer
-            id={tariff.duration}
             key={tariff.duration}
             tariff={tariff}
-            consumption={consumption}
-            location={location}
-            pricePerKwh={pricePerKwh}
-            fixCosts={fixCosts}
-            fixedFlexibleCosts={fixedFlexibleCosts}
-            setIsClicked={setIsClicked}
-            setSelectedTariffId={setSelectedTariffId}
           />
         ))}
       </div>
-      {isClicked && selectedTariffId !== null && (
-        <TariffDetails
-          tariffs={tariffs}
-          id={selectedTariffId}
-          buttonAllowed={buttonAllowed}
-        />
-      )}
+      {selectedTariff && <TariffDetails tariff={selectedTariff} />}
       <EnergyBenefitsShorts marginX={0} marginTop={1} />
     </main>
   );

@@ -15,7 +15,7 @@ const InputField = ({
       type={type}
       name={name}
       placeholder={`Enter ${label.toLowerCase()}`}
-      className="p-5 text-xl px-4 border rounded-lg"
+      className="p-5 text-xl px-4 border rounded-lg bg-white text-black"
       value={value}
       onChange={onChange}
     />

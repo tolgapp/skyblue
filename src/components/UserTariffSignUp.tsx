@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Back from './Back';
 import InputField from './InputField';
 import Placeholder from './Placeholder';
+import SelectedTariff from './SelectedTariff';
 
 const UserTariffSignUp = () => {
   const [userData, setUserData] = useState({
@@ -32,6 +33,7 @@ const UserTariffSignUp = () => {
   return (
     <div className="flex flex-col mx-18 gap-8 mt-5">
       <Back />
+      <SelectedTariff />
       <div className="border flex flex-col items-center rounded-lg h-fit py-18">
         {currentStep === 1 && (
           <div className="flex flex-col justify-start w-full px-18 gap-8">
@@ -70,7 +72,6 @@ const UserTariffSignUp = () => {
             </form>
           </div>
         )}
-
         {currentStep === 2 && (
           <div className="flex flex-col justify-start w-full px-18 gap-8">
             <h2 className="text-4xl font-[OpenSansVar] font-medium">
@@ -103,7 +104,6 @@ const UserTariffSignUp = () => {
             </form>
           </div>
         )}
-
         {currentStep === 3 && (
           <div className="flex flex-col justify-start w-full px-18 gap-8">
             <h2 className="text-4xl font-[OpenSansVar] font-medium">
@@ -127,7 +127,6 @@ const UserTariffSignUp = () => {
             </form>
           </div>
         )}
-
         {currentStep === 4 && (
           <div className="flex flex-col justify-start w-full px-18 gap-8">
             <h2 className="text-4xl font-medium">Confirm your information</h2>
@@ -170,14 +169,12 @@ const UserTariffSignUp = () => {
           </div>
         )}
       </div>
-      <Placeholder height={13}/>
+      <Placeholder height={2} />
     </div>
   );
 };
 
 export default UserTariffSignUp;
-
-
 
 const FormNavigation = ({
   onNext,
@@ -190,7 +187,7 @@ const FormNavigation = ({
     {onPrev && (
       <button
         type="button"
-        className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-60 text-center hover:bg-blue-400"
+        className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-55 text-center hover:bg-blue-400"
         onClick={onPrev}
       >
         Back
@@ -199,7 +196,7 @@ const FormNavigation = ({
     {onNext && (
       <button
         type="button"
-        className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-60 text-center hover:bg-blue-400"
+        className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-55 text-center hover:bg-blue-400"
         onClick={onNext}
       >
         Next

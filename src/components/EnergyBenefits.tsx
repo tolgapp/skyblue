@@ -26,7 +26,7 @@ const benefits = [
       'Track your real-time energy usage with smart meter technology.',
     buttonText: 'Explore features',
     imageAlt: 'Smart meter mockup',
-    image: '/images/smart.jpg',
+    image: '/images/smart.png',
   },
 ];
 

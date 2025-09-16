@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Back from './Back';
+import InputField from './InputField';
+import Placeholder from './Placeholder';
 
 const UserTariffSignUp = () => {
   const [userData, setUserData] = useState({
@@ -128,12 +130,10 @@ const UserTariffSignUp = () => {
 
         {currentStep === 4 && (
           <div className="flex flex-col justify-start w-full px-18 gap-8">
-            <h2 className="text-4xl font-[OpenSansVar] font-medium">
-              Confirm your information
-            </h2>
-            <div className="text-xl leading-loose bg-gray-700 rounded-lg p-6 space-y-3">
+            <h2 className="text-4xl font-medium">Confirm your information</h2>
+            <div className="text-xl leading-loose bg-black rounded-lg p-6 space-y-3">
               {Object.entries(userData).map(([key, value]) => (
-                <div key={key} className="flex justify-between border-b pb-2">
+                <div key={key} className="flex justify-between border-b pb-5">
                   <span className="capitalize">{key}</span>
                   <span className="font-semibold">{value}</span>
                 </div>
@@ -142,14 +142,14 @@ const UserTariffSignUp = () => {
             <div className="flex gap-6 pt-6">
               <button
                 type="button"
-                className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-80 text-center hover:bg-blue-400"
+                className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-60 text-center hover:bg-blue-400"
                 onClick={prevStep}
               >
                 Back
               </button>
               <button
                 type="submit"
-                className="cursor-pointer text-2xl bg-blue-900 text-white rounded-lg py-4 w-80 text-center hover:bg-blue-800"
+                className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-60 text-center hover:bg-blue-400"
                 onClick={() =>
                   setUserData({
                     street: '',
@@ -170,39 +170,14 @@ const UserTariffSignUp = () => {
           </div>
         )}
       </div>
+      <Placeholder height={13}/>
     </div>
   );
 };
 
 export default UserTariffSignUp;
 
-const InputField = ({
-  label,
-  name,
-  value,
-  onChange,
-  type = 'text',
-}: {
-  label: string;
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  type?: string;
-}) => (
-  <div className="flex flex-col gap-2">
-    <label className="text-2xl" htmlFor={name}>
-      {label}
-    </label>
-    <input
-      type={type}
-      name={name}
-      placeholder={`Enter ${label.toLowerCase()}`}
-      className="p-5 text-xl px-4 border rounded-lg"
-      value={value}
-      onChange={onChange}
-    />
-  </div>
-);
+
 
 const FormNavigation = ({
   onNext,
@@ -215,7 +190,7 @@ const FormNavigation = ({
     {onPrev && (
       <button
         type="button"
-        className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-80 text-center hover:bg-blue-400"
+        className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-60 text-center hover:bg-blue-400"
         onClick={onPrev}
       >
         Back
@@ -224,7 +199,7 @@ const FormNavigation = ({
     {onNext && (
       <button
         type="button"
-        className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-80 text-center hover:bg-blue-400"
+        className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-60 text-center hover:bg-blue-400"
         onClick={onNext}
       >
         Next

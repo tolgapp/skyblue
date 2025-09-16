@@ -12,7 +12,7 @@ const ImageWithTitle = () => {
         <div className="absolute text-white top-1/2 pb-16 sm:pb-8 z-20 text-left max-w-[51rem] flex gap-2 flex-col mx-18">
           <h2 className="text-4xl sm:text-7xl font-bold text-shadow">
             <span className="text-blue-700 font-black pr-4">
-              LOVE 
+            LOVE 
             </span>
             NATURE.
           </h2>

@@ -6,6 +6,7 @@ import type { FormDataProps } from './components/Calculator';
 import Home from './pages/Home';
 import Footer from './components/Footer';
 import UserTariffSignUp from './components/UserTariffSignUp';
+import NotFound from './components/NotFound';
 
 const App = () => {
   const [formData, setFormData] = useState<FormDataProps>({
@@ -30,6 +31,8 @@ const App = () => {
           }
         />
         <Route path="/tariff-signup" element={<UserTariffSignUp />} />
+        <Route path="*" element={<NotFound />} />
+          
       </Routes>
       <Footer />
     </>

@@ -1,4 +1,4 @@
-# Thanks for the Pictures to:
+# Special Thanks to for the Pictures:
 
 Links
 

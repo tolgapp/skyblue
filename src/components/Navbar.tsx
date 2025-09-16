@@ -7,14 +7,19 @@ const Navbar = () => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
-    setIsClicked(true);
+    setIsClicked((prev) => !prev);
   }
 
   return (
     <header className="relative flex items-center sm:h-25 justify-between w-full px-18">
       <Logo />
-      <button onClick={handleClick} className="font-bold border p-3 px-5 rounded-lg cursor-pointer">Menu</button>
-      {isClicked && <Menu />}
+      <button
+        onClick={handleClick}
+        className="font-bold border p-3 px-5 rounded-lg cursor-pointer"
+      >
+        Menu
+      </button>
+      {isClicked && <Menu setIsClicked={setIsClicked} />}
     </header>
   );
 };

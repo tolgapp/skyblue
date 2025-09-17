@@ -100,7 +100,7 @@ const ShowTariffs = () => {
   return (
     <main className="mx-18 flex flex-col gap-8 mt-5">
       <Back />
-      <div className="bg-white text-black rounded-lg p-6 flex items-center gap-x-12 shadow-md w-full mx-auto justify-center">
+      <div className="bg-white text-black rounded-lg p-6 flex flex-col sm:flex-row gap-4 justify-start sm:items-center gap-x-12 shadow-md w-full mx-auto sm:justify-center">
         <div className="flex items-center gap-4">
           <h3 className="text-lg font-semibold whitespace-nowrap">
             Your postal code:
@@ -172,10 +172,7 @@ const ShowTariffs = () => {
       </div>
       <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 p-10 rounded-lg bg-blue-400 h-fit">
         {tariffs.map((tariff) => (
-          <TarifContainer
-            key={tariff.duration}
-            tariff={tariff}
-          />
+          <TarifContainer key={tariff.duration} tariff={tariff} />
         ))}
       </div>
       {selectedTariff && <TariffDetails tariff={selectedTariff} />}

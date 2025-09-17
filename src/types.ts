@@ -52,4 +52,5 @@ export type UserInput = {
 export type UserInputContextType = {
   userInput: UserInput;
   setUserInput: React.Dispatch<React.SetStateAction<UserInput>>;
+  clearUserInputs: () => void;
 };

@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const UserTariffSignUp = () => {
   const { selectedTariff } = useTariff();
-  const { userInput } = useUserInputs();
+  const { userInput, clearUserInputs } = useUserInputs();
   const { pricePerKwh, fixCosts, fixedFlexibleCosts } = usePrices();
 
   const monthlyPrice = selectedTariff?.calculatePrice(
@@ -55,6 +55,33 @@ const UserTariffSignUp = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleSubmit = () => {
+    setUserData({
+      street: '',
+      streetNumber: '',
+      postalcode: '',
+      city: '',
+      name: '',
+      surname: '',
+      birthdate: '',
+      iban: '',
+      bic: '',
+      energyType: '',
+      tariff: '',
+      fixCosts: fixCosts,
+      fixedFlexibleCosts: fixedFlexibleCosts,
+      pricePerKwh: pricePerKwh,
+      monthlyPrice: '',
+      yearlyPrice: '',
+      duration: selectedTariff?.duration,
+      consumption: '',
+    });
+
+    clearUserInputs(); 
+
+    navigate('/');
   };
 
   return (
@@ -176,29 +203,7 @@ const UserTariffSignUp = () => {
               <button
                 type="submit"
                 className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-60 text-center hover:bg-blue-400"
-                onClick={() => {
-                  setUserData({
-                    street: '',
-                    streetNumber: '',
-                    postalcode: '',
-                    city: '',
-                    name: '',
-                    surname: '',
-                    birthdate: '',
-                    iban: '',
-                    bic: '',
-                    energyType: '',
-                    tariff: '',
-                    fixCosts: fixCosts,
-                    fixedFlexibleCosts: fixedFlexibleCosts,
-                    pricePerKwh: pricePerKwh,
-                    monthlyPrice: '',
-                    yearlyPrice: '',
-                    duration: selectedTariff?.duration,
-                    consumption: '',
-                  });
-                  navigate('/');
-                }}
+                onClick={() => handleSubmit()}
               >
                 Submit
               </button>

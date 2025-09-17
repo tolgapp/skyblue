@@ -14,8 +14,18 @@ export const UserInputProvider = ({ children }: { children: ReactNode }) => {
     formSubmitted: false,
   });
 
+   const clearUserInputs = () => {
+     setUserInput({
+       consumption: '',
+       location: '',
+       energyType: '',
+       formSubmitted: false,
+     });
+   };
+
+
   return (
-    <UserInputContext.Provider value={{ userInput, setUserInput }}>
+    <UserInputContext.Provider value={{ userInput, setUserInput, clearUserInputs }}>
       {children}
     </UserInputContext.Provider>
   );

@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 :root {
   color: rgba(255, 255, 255, 0.87);
   background-color: #1c398e;
@@ -13,4 +18,8 @@
 
 .text-shadow {
   text-shadow: 0.22rem 0.22rem 0.2rem rgba(0, 0, 0, 0.524);
+}
+
+.text-shadow-light {
+  text-shadow: 0.11rem 0.11rem 0.1rem rgba(218, 218, 218, 0.524);
 }

@@ -187,11 +187,15 @@ const UserTariffSignUp = () => {
                     birthdate: '',
                     iban: '',
                     bic: '',
+                    energyType: '',
                     tariff: '',
-                    pricePerkWh: '',
-                    price: '',
+                    fixCosts: fixCosts,
+                    fixedFlexibleCosts: fixedFlexibleCosts,
+                    pricePerKwh: pricePerKwh,
+                    monthlyPrice: '',
                     yearlyPrice: '',
-                    duration: '',
+                    duration: selectedTariff?.duration,
+                    consumption: '',
                   });
                   navigate('/');
                 }}

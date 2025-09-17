@@ -1,11 +1,6 @@
 import { createContext, useContext } from 'react';
 import type { ReactNode } from 'react';
-
-type PriceContextType = {
-  pricePerKwh: number;
-  fixCosts: number;
-  fixedFlexibleCosts: number;
-};
+import type { PriceContextType } from '../types';
 
 const PriceContext = createContext<PriceContextType | undefined>(undefined);
 

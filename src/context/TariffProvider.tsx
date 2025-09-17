@@ -1,11 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { TariffProps } from '../types';
-
-type TariffContextType = {
-  selectedTariff: TariffProps | null;
-  setSelectedTariff: (tariff: TariffProps) => void;
-};
+import type { TariffContextType, TariffProps } from '../types';
 
 const TariffContext = createContext<TariffContextType | undefined>(undefined);
 

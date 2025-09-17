@@ -1,17 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
-
-type UserInput = {
-  consumption: string;
-  location: string;
-  energyType: string;
-  formSubmitted: boolean;
-};
-
-type UserInputContextType = {
-  userInput: UserInput;
-  setUserInput: React.Dispatch<React.SetStateAction<UserInput>>;
-};
+import type { UserInput, UserInputContextType } from '../types';
 
 const UserInputContext = createContext<UserInputContextType | undefined>(
   undefined
@@ -24,8 +13,6 @@ export const UserInputProvider = ({ children }: { children: ReactNode }) => {
     energyType: '',
     formSubmitted: false,
   });
-
-  console.log(userInput)
 
   return (
     <UserInputContext.Provider value={{ userInput, setUserInput }}>

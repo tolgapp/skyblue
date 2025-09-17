@@ -1,4 +1,5 @@
 import { FaBolt, FaLeaf, FaWifi } from 'react-icons/fa';
+import type { EnergyBenefitsProps } from '../types';
 
 const benefits = [
   {
@@ -29,11 +30,6 @@ const benefits = [
     image: '/images/smart.png',
   },
 ];
-
-interface EnergyBenefitsProps {
-  marginX: number;
-  marginTop: number;
-}
 
 const EnergyBenefits = ({ marginX, marginTop }: EnergyBenefitsProps) => {
   return (

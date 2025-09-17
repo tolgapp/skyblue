@@ -3,24 +3,51 @@ import Back from './Back';
 import InputField from './InputField';
 import Placeholder from './Placeholder';
 import SelectedTariff from './SelectedTariff';
+import { useTariff } from '../context/TariffProvider';
+import { useUserInputs } from '../context/UserInputsProvider';
+import { usePrices } from '../context/PriceProvider';
+import { useNavigate } from 'react-router-dom';
 
 const UserTariffSignUp = () => {
+  const { selectedTariff } = useTariff();
+  const { userInput } = useUserInputs();
+  const { pricePerKwh, fixCosts, fixedFlexibleCosts } = usePrices();
+
+  const monthlyPrice = selectedTariff?.calculatePrice(
+    Number(userInput.consumption),
+    pricePerKwh,
+    selectedTariff.duration >= 12 ? fixCosts : fixedFlexibleCosts
+  );
+
+  const yearlyPrice = (monthlyPrice ?? 0) * 12;
+
   const [userData, setUserData] = useState({
     street: '',
     streetNumber: '',
-    postalcode: '',
+    postalcode: userInput.location,
     city: '',
     name: '',
     surname: '',
     birthdate: '',
     iban: '',
     bic: '',
+    energyType: userInput.energyType,
+    tariff: selectedTariff?.name,
+    fixCosts,
+    fixedFlexibleCosts,
+    pricePerKwh,
+    monthlyPrice: (monthlyPrice ?? 0).toFixed(2),
+    yearlyPrice: yearlyPrice.toFixed(2),
+    duration: selectedTariff?.duration,
+    consumption: userInput.consumption,
   });
 
   const [currentStep, setCurrentStep] = useState(1);
 
   const nextStep = () => setCurrentStep((prev) => prev + 1);
   const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
+
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -149,7 +176,7 @@ const UserTariffSignUp = () => {
               <button
                 type="submit"
                 className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-60 text-center hover:bg-blue-400"
-                onClick={() =>
+                onClick={() => {
                   setUserData({
                     street: '',
                     streetNumber: '',
@@ -160,8 +187,14 @@ const UserTariffSignUp = () => {
                     birthdate: '',
                     iban: '',
                     bic: '',
-                  })
-                }
+                    tariff: '',
+                    pricePerkWh: '',
+                    price: '',
+                    yearlyPrice: '',
+                    duration: '',
+                  });
+                  navigate('/');
+                }}
               >
                 Submit
               </button>

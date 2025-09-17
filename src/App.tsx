@@ -7,8 +7,8 @@ import UserTariffSignUp from './components/UserTariffSignUp';
 import NotFound from './components/NotFound';
 
 const App = () => {
+  
   // TODO: Responsive Design
-  // TODO: Menu Light integerieren (100vh) + Große Schrift
 
   return (
     <>

@@ -1,13 +1,13 @@
-import { usePrices } from '../context/PriceProvider';
-import { useTariff } from '../context/TariffProvider';
-import { useUserInputs } from '../context/UserInputsProvider';
+import { usePrices } from '../context/usePrice';
+import { useTariff } from '../context/useTariff';
+import { useUserInputs } from '../context/useUserInputs';
 
 const SelectedTariff = () => {
   const { selectedTariff } = useTariff();
-  const {userInput} = useUserInputs()
+  const { userInput } = useUserInputs();
   const { pricePerKwh, fixCosts, fixedFlexibleCosts } = usePrices();
 
-  if (!selectedTariff) return null; 
+  if (!selectedTariff) return null;
 
   const monthlyPrice = selectedTariff.calculatePrice(
     Number(userInput.consumption),

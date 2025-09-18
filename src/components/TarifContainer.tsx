@@ -1,6 +1,7 @@
-import { useTariff } from '../context/TariffProvider';
-import { useUserInputs } from '../context/UserInputsProvider';
-import { usePrices } from '../context/PriceProvider';
+
+import { usePrices } from '../context/usePrice';
+import { useTariff } from '../context/useTariff';
+import { useUserInputs } from '../context/useUserInputs';
 import type { TarifContainerProps } from '../types';
 
 const TarifContainer: React.FC<TarifContainerProps> = ({ tariff }) => {

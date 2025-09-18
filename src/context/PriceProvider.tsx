@@ -1,8 +1,7 @@
-import { createContext, useContext } from 'react';
 import type { ReactNode } from 'react';
 import type { PriceContextType } from '../types';
+import PriceContext from './PriceProviderContext';
 
-const PriceContext = createContext<PriceContextType | undefined>(undefined);
 
 export const PriceProvider = ({ children }: { children: ReactNode }) => {
 const prices: PriceContextType = {
@@ -16,10 +15,3 @@ const prices: PriceContextType = {
   );
 };
 
-export const usePrices = () => {
-  const context = useContext(PriceContext);
-  if (!context) {
-    throw new Error('usePrices must be used within a PriceProvider');
-  }
-  return context;
-};

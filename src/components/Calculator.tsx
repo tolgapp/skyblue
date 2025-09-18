@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useUserInputs } from '../context/UserInputsProvider';
+import { useUserInputs } from '../context/useUserInputs';
 
 const energyOptions = ['Electricity', 'Gas', 'Kombi'];
 

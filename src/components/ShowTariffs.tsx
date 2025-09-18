@@ -4,8 +4,8 @@ import TarifContainer from './TarifContainer';
 import { useSearchParams } from 'react-router-dom';
 import EnergyBenefitsShorts from './EnergyBenefitsShort';
 import TariffDetails from './TariffDetails';
-import { useTariff } from '../context/TariffProvider';
-import { useUserInputs } from '../context/UserInputsProvider';
+import { useUserInputs } from '../context/useUserInputs';
+import { useTariff } from '../context/useTariff';
 
 const tariffs = [
   {
@@ -79,7 +79,7 @@ const ShowTariffs = () => {
         formSubmitted: true,
       });
     }
-  }, [urlLocation, urlConsumption, userInput, setUserInput]);
+  }, [urlLocation, urlConsumption, userInput, setUserInput, urlEnergyType]);
 
   const changeLocation = () => {
     setUserInput((prev) => ({ ...prev, location: localPostalCode }));

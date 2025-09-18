@@ -3,10 +3,10 @@ import Back from './Back';
 import InputField from './InputField';
 import Placeholder from './Placeholder';
 import SelectedTariff from './SelectedTariff';
-import { useTariff } from '../context/TariffProvider';
-import { useUserInputs } from '../context/UserInputsProvider';
-import { usePrices } from '../context/PriceProvider';
 import { useNavigate } from 'react-router-dom';
+import { useUserInputs } from '../context/useUserInputs';
+import { usePrices } from '../context/usePrice';
+import { useTariff } from '../context/useTariff';
 
 const UserTariffSignUp = () => {
   const { selectedTariff } = useTariff();

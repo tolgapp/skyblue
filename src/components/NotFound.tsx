@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const NotFound = () => {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-blue-100">
+    <main className="px-4 sm:px-0 min-h-screen flex flex-col items-center justify-center bg-blue-100">
       <div className="bg-white rounded-xl shadow-lg p-10 flex flex-col items-center max-w-lg w-full border border-blue-200">
         <div className="flex flex-col items-center mb-6">
           <svg

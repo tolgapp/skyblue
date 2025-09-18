@@ -27,7 +27,7 @@ const  TariffDetails = ({ tariff }: ProductDetailsProps) => {
   const yearlyPrice = (Number(calculatedPrice) * 12).toFixed(2);
 
   return (
-    <section className="w-full mx-auto bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+    <section className="w-full mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-8 border border-gray-200">
       <h2 className="text-6xl font-bold text-blue-900 mb-4">{tariff.name}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-800">
         <div>
@@ -75,7 +75,7 @@ const  TariffDetails = ({ tariff }: ProductDetailsProps) => {
         </button>
         <Link
           to={'/tariff-signup'}
-          className="px-5 py-2 bg-blue-800 text-white rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer"
+          className="px-5 py-2 bg-blue-800 text-white rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer text-center"
         >
           This is my tariff →
         </Link>

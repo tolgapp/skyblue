@@ -1,39 +1,40 @@
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 
 const Footer = () => {
   return (
-    <footer className="flex w-full px-18 bg-blue-400 justify-between items-start p-8 mt-16 h-60 text-white">
+    <footer className="flex w-full px-4 sm:px-18 bg-blue-400 justify-between sm:items-start p-8 mt-16 sm:h-60 text-white">
       <Logo />
-      <div className="flex space-x-16">
+      <div className="flex flex-col sm:flex-row space-x-16 gap-3 sm:gap-0">
         <div className="flex flex-col space-y-2">
-          <a href="#" className="hover:underline">
+          <Link to="#" className="hover:underline">
             About Us
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link to="#" className="hover:underline">
             Careers
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link to="#" className="hover:underline">
             Contact
-          </a>
+          </Link>
         </div>
         <div className="flex flex-col space-y-2">
-          <a href="#" className="hover:underline">
+          <Link to="#" className="hover:underline">
             Terms of Service
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link to="#" className="hover:underline">
             Privacy Policy
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link to="#" className="hover:underline">
             Help Center
-          </a>
+          </Link>
         </div>
         <div className="flex flex-col space-y-2">
-          <a href="#" className="hover:underline">
+          <Link to="#" className="hover:underline">
             Sustainability
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link to="#" className="hover:underline">
             Investor Relations
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

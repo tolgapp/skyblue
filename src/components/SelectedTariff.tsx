@@ -18,7 +18,7 @@ const SelectedTariff = () => {
   const yearlyPrice = monthlyPrice * 12;
 
   return (
-    <section className="w-full mx-auto bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+    <section className="w-full mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-8 border border-gray-200">
       <h2 className="text-6xl font-bold text-blue-900 mb-4">
         {selectedTariff.name}
       </h2>

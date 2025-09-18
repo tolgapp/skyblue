@@ -85,16 +85,16 @@ const UserTariffSignUp = () => {
   };
 
   return (
-    <div className="flex flex-col mx-18 gap-8 mt-5">
+    <div className="flex flex-col mx-4 sm:mx-18 gap-8 mt-5">
       <Back />
       <SelectedTariff />
-      <div className="border flex flex-col items-center rounded-lg h-fit py-18">
+      <div className="border flex flex-col items-center rounded-lg h-fit py-8 sm:py-18">
         {currentStep === 1 && (
-          <div className="flex flex-col justify-start w-full px-18 gap-8">
+          <div className="flex flex-col justify-start w-full px-4 sm:px-18 gap-8">
             <h2 className="text-4xl font-[OpenSansVar] font-medium">
               Where goes the positive energy tariff?
             </h2>
-            <form className="grid grid-rows-2 grid-cols-2 gap-8">
+            <form className="flex flex-col sm:grid sm:grid-rows-2 sm:grid-cols-2 gap-4 sm:gap-8">
               {/* Address fields */}
               <InputField
                 label="Streetname"
@@ -127,11 +127,11 @@ const UserTariffSignUp = () => {
           </div>
         )}
         {currentStep === 2 && (
-          <div className="flex flex-col justify-start w-full px-18 gap-8">
+          <div className="flex flex-col justify-start w-full px-4 sm:px-18 gap-8">
             <h2 className="text-4xl font-[OpenSansVar] font-medium">
               Who will be the contract holder?
             </h2>
-            <form className="grid grid-rows-2 grid-cols-2 gap-8">
+            <form className="flex flex-col sm:grid sm:grid-rows-2 sm:grid-cols-2 gap-4 sm:gap-8">
               <InputField
                 label="First Name"
                 name="name"
@@ -152,18 +152,17 @@ const UserTariffSignUp = () => {
                 type="date"
               />
               <div className="opacity-0">Placeholder</div>
-
               <div className="opacity-0">Placeholder</div>
               <FormNavigation onPrev={prevStep} onNext={nextStep} />
             </form>
           </div>
         )}
         {currentStep === 3 && (
-          <div className="flex flex-col justify-start w-full px-18 gap-8">
+          <div className="flex flex-col justify-start w-full px-4 sm:px-18 gap-8">
             <h2 className="text-4xl font-[OpenSansVar] font-medium">
               Where do we debit the energy cost from?
             </h2>
-            <form className="grid grid-rows-2 grid-cols-2 gap-8">
+            <form className="flex flex-col sm:grid sm:grid-rows-2 sm:grid-cols-2 gap-4 sm:gap-8">
               <InputField
                 label="IBAN"
                 name="iban"
@@ -182,27 +181,27 @@ const UserTariffSignUp = () => {
           </div>
         )}
         {currentStep === 4 && (
-          <div className="flex flex-col justify-start w-full px-18 gap-8">
+          <div className="flex flex-col justify-start w-full px-4 sm:px-18 gap-8">
             <h2 className="text-4xl font-medium">Confirm your information</h2>
-            <div className="text-xl leading-loose bg-black rounded-lg p-6 space-y-3">
+            <div className="text-xl leading-loose bg-white text-black rounded-lg p-6 space-y-3">
               {Object.entries(userData).map(([key, value]) => (
-                <div key={key} className="flex justify-between border-b pb-5">
-                  <span className="capitalize">{key}</span>
-                  <span className="font-semibold">{value}</span>
+                <div key={key} className="flex justify-between border-b pb-2 sm:pb-5">
+                  <span className="capitalize text-sm sm:text-lg">{key}</span>
+                  <span className="font-semibold text-sm sm:text-lg">{value}</span>
                 </div>
               ))}
             </div>
             <div className="flex gap-6 pt-6">
               <button
                 type="button"
-                className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-60 text-center hover:bg-blue-400"
+                className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-2 sm:py-4 w-30 sm:w-60 text-center hover:bg-blue-400"
                 onClick={prevStep}
               >
                 Back
               </button>
               <button
                 type="submit"
-                className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-60 text-center hover:bg-blue-400"
+                className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-2 sm:py-4 w-30 sm:w-60  text-center hover:bg-blue-400"
                 onClick={() => handleSubmit()}
               >
                 Submit
@@ -225,11 +224,11 @@ const FormNavigation = ({
   onNext?: () => void;
   onPrev?: () => void;
 }) => (
-  <div className="flex gap-6 col-span-2">
+  <div className="flex gap-3 sm:gap-6 col-span-2">
     {onPrev && (
       <button
         type="button"
-        className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-55 text-center hover:bg-blue-400"
+        className="cursor-pointer text-sm sm:text-2xl bg-white text-blue-900 rounded-lg sm:py-4 sm:w-55 p-2 w-30 text-center hover:bg-blue-400"
         onClick={onPrev}
       >
         Back
@@ -238,7 +237,7 @@ const FormNavigation = ({
     {onNext && (
       <button
         type="button"
-        className="cursor-pointer text-2xl bg-white text-blue-900 rounded-lg py-4 w-55 text-center hover:bg-blue-400"
+        className="cursor-pointer text-sm sm:text-2xl bg-white text-blue-900 rounded-lg sm:py-4 p-2 w-30 sm:w-55 text-center hover:bg-blue-400"
         onClick={onNext}
       >
         Next

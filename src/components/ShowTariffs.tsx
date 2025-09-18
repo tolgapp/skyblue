@@ -98,11 +98,11 @@ const ShowTariffs = () => {
   };
 
   return (
-    <main className="mx-18 flex flex-col gap-8 mt-5">
+    <main className="mx-4 sm:mx-18 flex flex-col gap-8 mt-5">
       <Back />
       <div className="bg-white text-black rounded-lg p-6 flex flex-col sm:flex-row gap-4 justify-start sm:items-center gap-x-12 shadow-md w-full mx-auto sm:justify-center">
-        <div className="flex items-center gap-4">
-          <h3 className="text-lg font-semibold whitespace-nowrap">
+        <div className="flex justify-between items-center gap-4">
+          <h3 className="text-sm sm:text-lg font-semibold whitespace-nowrap">
             Your postal code:
           </h3>
           {isEditingPostalCode ? (
@@ -135,8 +135,8 @@ const ShowTariffs = () => {
             </>
           )}
         </div>
-        <div className="flex items-center gap-4">
-          <h3 className="text-lg font-semibold whitespace-nowrap">
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+          <h3 className="text-sm sm:text-lg font-semibold whitespace-nowrap">
             Your yearly consumption:
           </h3>
           {isEditingConsumption ? (
@@ -146,7 +146,7 @@ const ShowTariffs = () => {
                 name="consumption"
                 value={localConsumption}
                 onChange={(e) => setLocalConsumption(e.target.value)}
-                className="text-base border-b-2 border-gray-400 focus:outline-none focus:border-black px-2 py-1 w-32"
+                className="text-base border-b-2 border-gray-400 focus:outline-none focus:border-black px-2 py-1 w-20 sm:w-32"
               />
               <button
                 onClick={changeConsumption}
@@ -170,7 +170,7 @@ const ShowTariffs = () => {
           )}
         </div>
       </div>
-      <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 p-10 rounded-lg bg-blue-400 h-fit">
+      <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 p-4 sm:p-10 rounded-lg bg-blue-400 h-fit">
         {tariffs.map((tariff) => (
           <TarifContainer key={tariff.duration} tariff={tariff} />
         ))}

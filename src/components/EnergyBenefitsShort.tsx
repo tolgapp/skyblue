@@ -27,7 +27,7 @@ const benefits = [
 
 const EnergyBenefitsShort = ({ marginX, marginTop }: EnergyBenefitsProps) => {
   return (
-    <div className={`grid grid-cols-1 mt-${marginTop} mx-${marginX} md:grid-cols-3 gap-6 p-10 bg-blue-400 rounded-xl`}>
+    <div className={`grid grid-cols-1 mt-${marginTop} mx-${marginX} md:grid-cols-3 gap-6 p-4 sm:p-10 bg-blue-400 rounded-xl`}>
       {benefits.map((benefit, index) => (
         <div
           key={index}

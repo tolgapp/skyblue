@@ -17,7 +17,7 @@ const ImageWithTitle = () => {
           <p className="text-2xl sm:text-3xl text-shadow z-10">
             Clean, renewable energy from Mother Nature.
           </p>
-          <div className="h-15 sm:h-11 bg-blue-700 -translate-y-18 sm:-translate-y-11 z-0 -rotate-2"></div>
+          <div className="h-11 sm:h-18 bg-blue-700 -translate-y-15 sm:-translate-y-21 md:-translate-y-12 z-0 -rotate-2"></div>
         </div>
       </div>
     </div>

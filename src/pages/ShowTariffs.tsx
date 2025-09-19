@@ -1,62 +1,40 @@
 import { useEffect, useState } from 'react';
-import Back from './Back';
-import TarifContainer from './TarifContainer';
+import Back from '../components/Back';
+import TarifContainer from '../components/TariffContainer';
 import { useSearchParams } from 'react-router-dom';
-import EnergyBenefitsShorts from './EnergyBenefitsShort';
-import TariffDetails from './TariffDetails';
+import EnergyBenefitsShorts from '../components/EnergyBenefitsShort';
+import TariffDetails from '../components/TariffDetails';
 import { useUserInputs } from '../context/useUserInputs';
-import { useTariff } from '../context/useTariff';
+import { useSelector } from 'react-redux';
 
 const tariffs = [
   {
     name: 'Blue basic',
     duration: 12,
     durationText: '12 months',
-    calculatePrice: (
-      consumption: number,
-      pricePerKwh: number,
-      fixCosts: number
-    ) => {
-      const costs = Number(consumption) * pricePerKwh + 12 * fixCosts;
-      return costs / 12;
-    },
   },
   {
     name: 'Blue flex',
     duration: 1,
     durationText: '1 month',
-    calculatePrice: (
-      consumption: number,
-      pricePerKwh: number,
-      fixCosts: number
-    ) => {
-      const costs = Number(consumption) * pricePerKwh + 12 * fixCosts;
-      return (costs / 12) * 1.45;
-    },
   },
   {
     name: 'Blue chill',
     duration: 24,
     durationText: '24 months',
-    calculatePrice: (
-      consumption: number,
-      pricePerKwh: number,
-      fixCosts: number
-    ) => {
-      const costs = Number(consumption) * pricePerKwh + 12 * fixCosts;
-      return (costs / 12) * 0.98;
-    },
   },
 ];
 
 const ShowTariffs = () => {
-  const { selectedTariff } = useTariff();
+  const selectedTariff = useSelector((state: any) => state.tariff)
   const { userInput, setUserInput } = useUserInputs();
 
   const [isEditingPostalCode, setIsEditingPostalCode] = useState(false);
   const [isEditingConsumption, setIsEditingConsumption] = useState(false);
   const [localPostalCode, setLocalPostalCode] = useState(userInput.location);
-  const [localConsumption, setLocalConsumption] = useState(userInput.consumption);
+  const [localConsumption, setLocalConsumption] = useState(
+    userInput.consumption
+  );
 
   const [searchParams, setSearchParams] = useSearchParams();
   const urlLocation = searchParams.get('location') || '';
@@ -98,7 +76,7 @@ const ShowTariffs = () => {
   return (
     <main className="mx-4 sm:mx-18 flex flex-col gap-8 mt-5">
       <Back />
-      <div className="bg-white text-black rounded-lg p-6 flex flex-col lg:flex-row gap-4 justify-start lg:items-center gap-x-12 shadow-md w-full mx-auto lg:justify-center">
+      <div className="bg-white text-black rounded-lg p-6 flex flex-col lg:flex-row gap-4 justify-start lg:items-center gap-x-12 shadow-lg w-full mx-auto lg:justify-center">
         <div className="flex justify-between items-center gap-4">
           <h3 className="text-sm sm:text-lg font-semibold whitespace-nowrap">
             Your postal code:
@@ -168,12 +146,12 @@ const ShowTariffs = () => {
           )}
         </div>
       </div>
-      <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-5 p-4 sm:p-10 rounded-lg bg-blue-400 h-fit">
+      <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 p-4 sm:p-10 rounded-lg bg-blue-400 h-fit">
         {tariffs.map((tariff) => (
           <TarifContainer key={tariff.duration} tariff={tariff} />
         ))}
       </div>
-      {selectedTariff && <TariffDetails tariff={selectedTariff} />}
+      {selectedTariff.duration > 0 && <TariffDetails tariff={selectedTariff} />}
       <EnergyBenefitsShorts marginX={0} marginTop={1} />
     </main>
   );

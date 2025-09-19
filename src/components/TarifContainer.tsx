@@ -24,7 +24,7 @@ const TarifContainer: React.FC<TarifContainerProps> = ({ tariff }) => {
   };
 
   return (
-    <div className="bg-white shadow-md border border-gray-200 rounded-xl p-6 flex flex-col justify-between h-full w-full max-w-sm mx-auto transition-all hover:shadow-xl">
+    <div className="bg-white shadow-md border border-gray-200 rounded-xl p-6 flex flex-col justify-between h-full w-full max-w-xl mx-auto transition-all hover:shadow-xl">
       <h2 className="text-2xl font-bold text-blue-900 mb-2">{tariff.name}</h2>
       <div className="flex flex-col gap-4 mt-2">
         <p className="text-gray-600 text-sm">

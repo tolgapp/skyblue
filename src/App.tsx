@@ -3,11 +3,10 @@ import ShowTariffs from './components/ShowTariffs';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Footer from './components/Footer';
-import UserTariffSignUp from './components/UserTariffSignUp';
+import UserTariffSignUp from './pages/UserTariffSignUp';
 import NotFound from './components/NotFound';
 
 const App = () => {
-  
   // TODO: Responsive Design
 
   return (

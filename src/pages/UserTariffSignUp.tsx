@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Back from './Back';
-import InputField from './InputField';
-import Placeholder from './Placeholder';
-import SelectedTariff from './SelectedTariff';
+import Back from '../components/Back';
+import InputField from '../components/InputField';
+import Placeholder from '../components/Placeholder';
+import SelectedTariff from '../components/SelectedTariff';
 import { useNavigate } from 'react-router-dom';
 import { useUserInputs } from '../context/useUserInputs';
 import { usePrices } from '../context/usePrice';
@@ -79,7 +79,7 @@ const UserTariffSignUp = () => {
       consumption: '',
     });
 
-    clearUserInputs(); 
+    clearUserInputs();
 
     navigate('/');
   };
@@ -185,9 +185,14 @@ const UserTariffSignUp = () => {
             <h2 className="text-4xl font-medium">Confirm your information</h2>
             <div className="text-xl leading-loose bg-white text-black rounded-lg p-6 space-y-3">
               {Object.entries(userData).map(([key, value]) => (
-                <div key={key} className="flex justify-between border-b pb-2 sm:pb-5">
+                <div
+                  key={key}
+                  className="flex justify-between border-b pb-2 sm:pb-5"
+                >
                   <span className="capitalize text-sm sm:text-lg">{key}</span>
-                  <span className="font-semibold text-sm sm:text-lg">{value}</span>
+                  <span className="font-semibold text-sm sm:text-lg">
+                    {value}
+                  </span>
                 </div>
               ))}
             </div>

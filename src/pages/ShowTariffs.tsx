@@ -4,34 +4,15 @@ import TarifContainer from '../components/TariffContainer';
 import { useSearchParams } from 'react-router-dom';
 import EnergyBenefitsShorts from '../components/EnergyBenefitsShort';
 import TariffDetails from '../components/TariffDetails';
-import { useUserInputs } from '../context/useUserInputs';
 import { useSelector } from 'react-redux';
 
-const tariffs = [
-  {
-    name: 'Blue basic',
-    duration: 12,
-    durationText: '12 months',
-  },
-  {
-    name: 'Blue flex',
-    duration: 1,
-    durationText: '1 month',
-  },
-  {
-    name: 'Blue chill',
-    duration: 24,
-    durationText: '24 months',
-  },
-];
-
 const ShowTariffs = () => {
-  const selectedTariff = useSelector((state: any) => state.tariff)
-  const { userInput, setUserInput } = useUserInputs();
+ const tariffs = useSelector((state) => state.tariff);
+ const userInput = useSelector((state) => state.userInput)
 
   const [isEditingPostalCode, setIsEditingPostalCode] = useState(false);
   const [isEditingConsumption, setIsEditingConsumption] = useState(false);
-  const [localPostalCode, setLocalPostalCode] = useState(userInput.location);
+  const [localPostalCode, setLocalPostalCode] = useState(location);
   const [localConsumption, setLocalConsumption] = useState(
     userInput.consumption
   );
@@ -146,12 +127,12 @@ const ShowTariffs = () => {
           )}
         </div>
       </div>
+      {selectedTariff.duration > 0 && <TariffDetails tariff={selectedTariff} />}
       <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 p-4 sm:p-10 rounded-lg bg-blue-400 h-fit">
         {tariffs.map((tariff) => (
           <TarifContainer key={tariff.duration} tariff={tariff} />
         ))}
       </div>
-      {selectedTariff.duration > 0 && <TariffDetails tariff={selectedTariff} />}
       <EnergyBenefitsShorts marginX={0} marginTop={1} />
     </main>
   );

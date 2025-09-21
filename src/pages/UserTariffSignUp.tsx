@@ -4,15 +4,8 @@ import InputField from '../components/InputField';
 import Placeholder from '../components/Placeholder';
 import SelectedTariff from '../components/SelectedTariff';
 import { useNavigate } from 'react-router-dom';
-import { useUserInputs } from '../context/useUserInputs';
-import { usePrices } from '../context/usePrice';
-import { useTariff } from '../context/useTariff';
 
 const UserTariffSignUp = () => {
-  const { selectedTariff } = useTariff();
-  const { userInput, clearUserInputs } = useUserInputs();
-  const { pricePerKwh, fixCosts, fixedFlexibleCosts } = usePrices();
-
   const monthlyPrice = selectedTariff?.calculatePrice(
     Number(userInput.consumption),
     pricePerKwh,
@@ -24,14 +17,14 @@ const UserTariffSignUp = () => {
   const [userData, setUserData] = useState({
     street: '',
     streetNumber: '',
-    postalcode: userInput.location,
+    postalcode: location,
     city: '',
     name: '',
     surname: '',
     birthdate: '',
     iban: '',
     bic: '',
-    energyType: userInput.energyType,
+    energyType: energyType,
     tariff: selectedTariff?.name,
     fixCosts,
     fixedFlexibleCosts,
@@ -39,7 +32,7 @@ const UserTariffSignUp = () => {
     monthlyPrice: (monthlyPrice ?? 0).toFixed(2),
     yearlyPrice: yearlyPrice.toFixed(2),
     duration: selectedTariff?.duration,
-    consumption: userInput.consumption,
+    consumption: consumption,
   });
 
   const [currentStep, setCurrentStep] = useState(1);

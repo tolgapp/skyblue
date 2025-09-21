@@ -1,34 +1,45 @@
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useUserInputs } from '../context/useUserInputs';
+import { setUserInput } from '../store/reducers/userInputsReducer';
+import { useState } from 'react';
 
 const energyOptions = ['Electricity', 'Gas', 'Kombi'];
 
 const Calculator = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userInput, setUserInput } = useUserInputs();
+
+  const [formData, setFormData] = useState({
+    location: '',
+    energyType: '',
+    consumption: '',
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+
+    dispatch(setUserInput({ [name]: value }));
+  };
 
   const getUserInputs = (e: React.FormEvent) => {
     e.preventDefault();
 
     const queryParams = new URLSearchParams({
-      location: userInput.location,
-      consumption: userInput.consumption,
-      energyType: userInput.energyType,
+      location: formData.location,
+      consumption: formData.consumption,
+      energyType: formData.energyType,
     });
 
-    setUserInput({ ...userInput, formSubmitted: true });
-
-    if (userInput.energyType === 'Electricity') {
-      navigate(`/findtariff?${queryParams.toString()}`);
-    } else {
-      console.log('Currently only Electricity available');
-    }
+    navigate(`/findtariff?${queryParams.toString()}`);
   };
 
   const submitted =
-    userInput.location.length === 5 &&
-    userInput.energyType.length > 0 &&
-    userInput.consumption > '100';
+    formData.location.length === 5 &&
+    formData.energyType.length > 0 &&
+    formData.consumption > '100';
 
   return (
     <div className="flex flex-col justify-center bg-blue-400 h-fit pt-5 pb-8 rounded-xl mx-4 sm:mx-18 px-5">
@@ -44,16 +55,15 @@ const Calculator = () => {
           <input
             type="text"
             id="location1"
-            name="location1"
+            name="location"
             placeholder="Your postalcode"
             className="border rounded-lg p-3 sm:p-4 w-full text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
             maxLength={5}
-            value={userInput.location}
-            onChange={(e) => {
-              setUserInput({ ...userInput, location: e.target.value });
-            }}
+            value={formData.location}
+            onChange={handleChange}
           />
         </div>
+
         {/* Energy Type */}
         <div className="col-span-2 flex flex-col gap-2 sm:gap-4 justify-around">
           <label className="font-bold text-base sm:text-lg">
@@ -64,14 +74,14 @@ const Calculator = () => {
               <button
                 type="button"
                 key={type}
-                onClick={(e) =>
-                  setUserInput({
-                    ...userInput,
-                    energyType: (e.target as HTMLButtonElement).innerText,
-                  })
+                name="energyType"
+                onClick={() =>
+                  handleChange({
+                    target: { name: 'energyType', value: type },
+                  } as any)
                 }
                 className={`cursor-pointer px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-sm sm:text-base w-full transition font-semibold shadow-sm border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-600 ${
-                  type === userInput.energyType
+                  type === formData.energyType
                     ? 'bg-blue-900 text-white'
                     : 'bg-white text-blue-400 hover:bg-blue-100'
                 }`}
@@ -81,6 +91,7 @@ const Calculator = () => {
             ))}
           </div>
         </div>
+
         {/* Consumption */}
         <div className="flex flex-col gap-2 sm:gap-4 justify-around">
           <label htmlFor="kwh" className="font-bold text-base sm:text-lg">
@@ -89,15 +100,14 @@ const Calculator = () => {
           <input
             type="number"
             id="kwh"
-            name="kwh"
+            name="consumption"
             placeholder="Your yearly consumption"
             className="border rounded-lg p-3 sm:p-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-600 transition w-full"
-            value={userInput.consumption}
-            onChange={(e) =>
-              setUserInput({ ...userInput, consumption: e.target.value })
-            }
+            value={formData.consumption}
+            onChange={handleChange}
           />
         </div>
+
         {/* Submit Button */}
         {submitted && (
           <div className="col-span-2 md:col-span-4 mt-2">
@@ -113,4 +123,5 @@ const Calculator = () => {
     </div>
   );
 };
+
 export default Calculator;

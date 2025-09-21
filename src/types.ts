@@ -3,14 +3,10 @@ export type TarifContainerProps = {
 };
 
 export type TariffProps = {
+  id: string,
   name: string;
   duration: number;
   durationText: string;
-  calculatePrice: (
-    consumption: number,
-    pricePerKwh: number,
-    fixCosts: number
-  ) => number;
 };
 
 export type ProductDetailsProps = {

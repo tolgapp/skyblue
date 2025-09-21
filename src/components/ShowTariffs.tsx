@@ -1,99 +1,58 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Back from './Back';
-import TarifContainer from './TarifContainer';
+import TarifContainer from './TariffContainer';
 import { useSearchParams } from 'react-router-dom';
 import EnergyBenefitsShorts from './EnergyBenefitsShort';
 import TariffDetails from './TariffDetails';
-import { useUserInputs } from '../context/useUserInputs';
-import { useTariff } from '../context/useTariff';
-
-const tariffs = [
-  {
-    name: 'Blue basic',
-    duration: 12,
-    durationText: '12 months',
-    calculatePrice: (
-      consumption: number,
-      pricePerKwh: number,
-      fixCosts: number
-    ) => {
-      const costs = Number(consumption) * pricePerKwh + 12 * fixCosts;
-      return costs / 12;
-    },
-  },
-  {
-    name: 'Blue flex',
-    duration: 1,
-    durationText: '1 month',
-    calculatePrice: (
-      consumption: number,
-      pricePerKwh: number,
-      fixCosts: number
-    ) => {
-      const costs = Number(consumption) * pricePerKwh + 12 * fixCosts;
-      return (costs / 12) * 1.45;
-    },
-  },
-  {
-    name: 'Blue chill',
-    duration: 24,
-    durationText: '24 months',
-    calculatePrice: (
-      consumption: number,
-      pricePerKwh: number,
-      fixCosts: number
-    ) => {
-      const costs = Number(consumption) * pricePerKwh + 12 * fixCosts;
-      return (costs / 12) * 0.98;
-    },
-  },
-];
+import { useSelector } from 'react-redux';
 
 const ShowTariffs = () => {
-  const { selectedTariff } = useTariff();
-  const { userInput, setUserInput } = useUserInputs();
-
-  const [isEditingPostalCode, setIsEditingPostalCode] = useState(false);
-  const [isEditingConsumption, setIsEditingConsumption] = useState(false);
-  const [localPostalCode, setLocalPostalCode] = useState(userInput.location);
-  const [localConsumption, setLocalConsumption] = useState(userInput.consumption);
+  const { consumption } = useSelector((state) => state.userInput);
+  const selectedTariff = useSelector((state) => state.tariff.selected)
+  const tariffs = useSelector((state) => state.tariff.all);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const urlLocation = searchParams.get('location') || '';
   const urlConsumption = searchParams.get('consumption') || '';
   const urlEnergyType = searchParams.get('energyType') || '';
 
-  useEffect(() => {
-    setLocalPostalCode(userInput.location);
-    setLocalConsumption(userInput.consumption);
-  }, [userInput.location, userInput.consumption]);
+  const [isEditingPostalCode, setIsEditingPostalCode] = useState(false);
+  const [isEditingConsumption, setIsEditingConsumption] = useState(false);
+  const [localPostalCode, setLocalPostalCode] = useState(urlLocation);
+  const [localConsumption, setLocalConsumption] = useState(consumption);
 
-  useEffect(() => {
-    if (!userInput.formSubmitted && urlLocation && urlConsumption) {
-      setUserInput({
-        location: urlLocation,
-        consumption: urlConsumption,
-        energyType: urlEnergyType,
-        formSubmitted: true,
-      });
-    }
-  }, [urlLocation, urlConsumption, userInput, setUserInput, urlEnergyType]);
 
-  const changeLocation = () => {
-    setUserInput((prev) => ({ ...prev, location: localPostalCode }));
-    const updatedParams = new URLSearchParams(searchParams);
-    updatedParams.set('location', localPostalCode);
-    setSearchParams(updatedParams);
-    setIsEditingPostalCode(false);
-  };
+  // useEffect(() => {
+  //   setLocalPostalCode(location);
+  //   setLocalConsumption(consumption);
+  // }, [location, consumption]);
 
-  const changeConsumption = () => {
-    setUserInput((prev) => ({ ...prev, consumption: localConsumption }));
-    const updatedParams = new URLSearchParams(searchParams);
-    updatedParams.set('consumption', localConsumption);
-    setSearchParams(updatedParams);
-    setIsEditingConsumption(false);
-  };
+  // useEffect(() => {
+  //   if (formSubmitted && urlLocation && urlConsumption) {
+  //     setUserInput({
+  //       location: urlLocation,
+  //       consumption: urlConsumption,
+  //       energyType: urlEnergyType,
+  //       formSubmitted: true,
+  //     });
+  //   }
+  // }, [urlLocation, urlConsumption, urlEnergyType]);
+
+  // const changeLocation = () => {
+  //   setUserInput((prev) => ({ ...prev, location: localPostalCode }));
+  //   const updatedParams = new URLSearchParams(searchParams);
+  //   updatedParams.set('location', localPostalCode);
+  //   setSearchParams(updatedParams);
+  //   setIsEditingPostalCode(false);
+  // };
+
+  // const changeConsumption = () => {
+  //   setUserInput((prev) => ({ ...prev, consumption: localConsumption }));
+  //   const updatedParams = new URLSearchParams(searchParams);
+  //   updatedParams.set('consumption', localConsumption);
+  //   setSearchParams(updatedParams);
+  //   setIsEditingConsumption(false);
+  // };
 
   return (
     <main className="mx-4 sm:mx-18 flex flex-col gap-8 mt-5">
@@ -170,7 +129,7 @@ const ShowTariffs = () => {
       </div>
       <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-5 p-4 sm:p-10 rounded-lg bg-blue-400 h-fit">
         {tariffs.map((tariff) => (
-          <TarifContainer key={tariff.duration} tariff={tariff} />
+          <TarifContainer key={tariff.id} tariff={tariff} />
         ))}
       </div>
       {selectedTariff && <TariffDetails tariff={selectedTariff} />}

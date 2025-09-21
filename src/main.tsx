@@ -2,21 +2,16 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { BrowserRouter } from 'react-router-dom';
-import { TariffProvider } from './context/TariffProvider.tsx';
 import './index.css';
-import { PriceProvider } from './context/PriceProvider.tsx';
-import { UserInputProvider } from './context/UserInputsProvider.tsx';
+import { Provider } from 'react-redux';
+import { store } from './store/store.ts';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <TariffProvider>
-        <PriceProvider>
-          <UserInputProvider>
-            <App />
-          </UserInputProvider>
-        </PriceProvider>
-      </TariffProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </StrictMode>
 );

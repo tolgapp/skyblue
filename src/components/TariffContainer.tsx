@@ -1,26 +1,22 @@
-
-import { usePrices } from '../context/usePrice';
-import { useTariff } from '../context/useTariff';
-import { useUserInputs } from '../context/useUserInputs';
+import { useDispatch } from 'react-redux';
+import { setSelectedTariff } from '../store/reducers/tariffsReducer';
 import type { TarifContainerProps } from '../types';
 
 const TarifContainer: React.FC<TarifContainerProps> = ({ tariff }) => {
-  const { setSelectedTariff } = useTariff();
-  const { userInput } = useUserInputs();
-  const { pricePerKwh, fixCosts, fixedFlexibleCosts } = usePrices();
+  const dispatch = useDispatch();
 
-  const price = tariff
-    .calculatePrice(
-      Number(userInput.consumption),
-      pricePerKwh,
-      tariff.duration >= 12 ? fixCosts : fixedFlexibleCosts
-    )
-    .toFixed(2);
+  // const price = tariff
+  //   .calculatePrice(
+  //     Number(consumption),
+  //     pricePerKwh,
+  //     tariff.duration >= 12 ? fixCosts : fixedFlexibleCosts
+  //   )
+  //   .toFixed(2);
 
   const hasBonus = tariff.duration >= 12;
 
   const handleSelect = () => {
-    setSelectedTariff(tariff);
+    dispatch(setSelectedTariff(tariff));
   };
 
   return (
@@ -40,12 +36,12 @@ const TarifContainer: React.FC<TarifContainerProps> = ({ tariff }) => {
         ) : (
           <div className="opacity-0 text-sm py-1 font-medium">Placeholder</div>
         )}
-        <div className="flex items-baseline gap-2 mt-2">
+        {/* <div className="flex items-baseline gap-2 mt-2">
           <span className="text-lg text-gray-700">Price:</span>
           <span className="text-3xl font-semibold text-blue-700">
             {price} €
           </span>
-        </div>
+        </div> */}
         <p className="text-sm text-gray-500 -mt-2">per month</p>
         <button
           onClick={handleSelect}

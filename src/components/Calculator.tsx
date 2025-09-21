@@ -13,6 +13,7 @@ const Calculator = () => {
     location: '',
     energyType: '',
     consumption: '',
+    formSubmitted: false,
   });
 
   const handleChange = (
@@ -30,8 +31,17 @@ const Calculator = () => {
     const queryParams = new URLSearchParams({
       location: formData.location,
       consumption: formData.consumption,
-      energyType: formData.energyType,
-    });
+      energyType: formData.energyType
+    })
+
+     dispatch(
+       setUserInput({
+         location: formData.location,
+         consumption: formData.consumption,
+         energyType: formData.energyType,
+         formSubmitted: true, 
+       })
+     );
 
     navigate(`/findtariff?${queryParams.toString()}`);
   };

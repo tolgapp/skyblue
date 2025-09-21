@@ -1,31 +1,31 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import type { ProductDetailsProps } from '../types';
+import { calculatePrice, fixCosts, fixedFlexibleCosts, pricePerKwh } from '../utils/helper';
+import { useSelector } from 'react-redux';
 
-const  TariffDetails = ({ tariff }: ProductDetailsProps) => {
+const TariffDetails = ({ tariff }: ProductDetailsProps) => {
   const [searchParams] = useSearchParams();
   const urlConsumption = searchParams.get('consumption') || '';
+   const selectedTariff = useSelector((state) => state.tariff.selected);
+   const { consumption } = useSelector((state) => state.tariff.all);
 
-  if (!tariff) {
-    return (
-      <div className="bg-red-100 text-red-700 px-6 py-4 rounded-lg shadow-md mt-6">
+   
+   if (!tariff) {
+     return (
+       <div className="bg-red-100 text-red-700 px-6 py-4 rounded-lg shadow-md mt-6">
         Tariff not found.
       </div>
     );
   }
+  
+  const monthlyPrice = calculatePrice(
+    urlConsumption,
+    pricePerKwh,
+    selectedTariff.duration > 12 ? fixCosts : fixedFlexibleCosts
+  );;
 
-  const pricePerKwh = 0.29;
-  const fixCosts = 9.99;
-  const fixedFlexibleCosts = 14.99;
-  const calculatedPrice = tariff
-    .calculatePrice(
-      Number(urlConsumption),
-      pricePerKwh,
-      tariff.duration >= 12 ? fixCosts : fixedFlexibleCosts
-    )
-    .toFixed(2);
-
-  const yearlyPrice = (Number(calculatedPrice) * 12).toFixed(2);
-
+  const yearlyPrice = (monthlyPrice * 12).toFixed(2);
+ 
   return (
     <section className="w-full mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-8 border border-gray-200">
       <h2 className="text-6xl font-bold text-blue-900 mb-4">{tariff.name}</h2>
@@ -41,11 +41,11 @@ const  TariffDetails = ({ tariff }: ProductDetailsProps) => {
             <p className="text-md text-gray-500 mb-1">
               Estimated monthly price
             </p>
-            <p className="text-4xl font-semibold">{calculatedPrice} €</p>
+            <p className="text-3xl font-semibold">{monthlyPrice} €</p>
           </div>
           <div>
             <p className="text-md text-gray-500 mb-1">Estimated yearly price</p>
-            <p className="text-4xl font-semibold">{yearlyPrice} €</p>
+            <p className="text-3xl font-semibold">{yearlyPrice} €</p>
           </div>
         </div>
         <div>

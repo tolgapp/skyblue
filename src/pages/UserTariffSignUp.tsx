@@ -4,14 +4,14 @@ import InputField from '../components/InputField';
 import Placeholder from '../components/Placeholder';
 import SelectedTariff from '../components/SelectedTariff';
 import { useNavigate } from 'react-router-dom';
+import { calculatePrice, fixCosts, fixedFlexibleCosts, pricePerKwh } from '../utils/helper';
+import { useSelector } from 'react-redux';
 
 const UserTariffSignUp = () => {
-  const monthlyPrice = selectedTariff?.calculatePrice(
-    Number(userInput.consumption),
-    pricePerKwh,
-    selectedTariff.duration >= 12 ? fixCosts : fixedFlexibleCosts
-  );
-
+  const selectedTariff = useSelector((state) => state.tariff.selected);
+  const { consumption, energyType, location } = useSelector((state) => state.userInput);
+console.log(selectedTariff)
+  const monthlyPrice = calculatePrice(consumption, pricePerKwh, selectedTariff.duration > 12 ? fixCosts : fixedFlexibleCosts);
   const yearlyPrice = (monthlyPrice ?? 0) * 12;
 
   const [userData, setUserData] = useState({
@@ -31,7 +31,7 @@ const UserTariffSignUp = () => {
     pricePerKwh,
     monthlyPrice: (monthlyPrice ?? 0).toFixed(2),
     yearlyPrice: yearlyPrice.toFixed(2),
-    duration: selectedTariff?.duration,
+    duration: selectedTariff.duration,
     consumption: consumption,
   });
 
@@ -72,7 +72,7 @@ const UserTariffSignUp = () => {
       consumption: '',
     });
 
-    clearUserInputs();
+   // clearUserInputs();
 
     navigate('/');
   };

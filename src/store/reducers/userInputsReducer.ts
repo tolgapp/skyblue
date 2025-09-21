@@ -4,6 +4,7 @@ const initialState = {
   location: '',
   energyType: '',
   consumption: '',
+  formSubmitted: false,
 };
 
 const userInputsReducer = createSlice({

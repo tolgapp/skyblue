@@ -1,26 +1,32 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { calculatePrice, fixCosts, fixedFlexibleCosts, pricePerKwh } from '../utils/helper';
+import {
+  calculatePrice,
+  fixCosts,
+  fixedFlexibleCosts,
+  pricePerKwh,
+} from '../utils/helper';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
 
 const TariffDetails = () => {
-   const selectedTariff = useSelector((state: RootState) => state.tariff.selected);
-   const {consumption} = useSelector((state: RootState) => state.userInput);
-   
-   if (!selectedTariff) {
-     return (
-       <div className="bg-red-100 text-red-700 px-6 py-4 rounded-lg shadow-md mt-6">
+  const selectedTariff = useSelector(
+    (state: RootState) => state.tariff.selected
+  );
+  const { consumption } = useSelector((state: RootState) => state.userInput);
+
+  if (!selectedTariff) {
+    return (
+      <div className="bg-red-100 text-red-700 px-6 py-4 rounded-lg shadow-md mt-6">
         selectedTariff not found.
       </div>
     );
   }
-  
+
   const costs = selectedTariff.duration >= 12 ? fixCosts : fixedFlexibleCosts;
   const monthlyPrice = calculatePrice(Number(consumption), pricePerKwh, costs);
 
-
   const yearlyPrice = (monthlyPrice * 12).toFixed(2);
- 
+
   return (
     <section className="w-full mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-8 border border-gray-200">
       <h2 className="text-6xl font-bold text-blue-900 mb-4">

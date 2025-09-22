@@ -5,15 +5,17 @@ import EnergyBenefitsShorts from './EnergyBenefitsShort';
 import TariffDetails from './TariffDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInput } from '../store/reducers/userInputsReducer';
-import type { TariffProps, UserInput } from '../types';
+import type { TariffProps } from '../types';
 import type { RootState } from '../store/store';
+import { useSearchParams } from 'react-router-dom';
 
 const ShowTariffs = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { consumption, location } = useSelector(
     (state: RootState) => state.userInput
   );
-  const userInput = useSelector((state: RootState) => state.userInput)
+  const userInput = useSelector((state: RootState) => state.userInput);
   const selectedTariff = useSelector(
     (state: RootState) => state.tariff.selected
   );
@@ -32,15 +34,17 @@ const ShowTariffs = () => {
         location: localPostalCode,
       })
     );
+      const updatedParams = new URLSearchParams(searchParams);
+      updatedParams.set('location', String(localPostalCode));
+      setSearchParams(updatedParams);
     setIsEditingPostalCode(false);
   };
 
   const changeConsumption = () => {
-    dispatch(
-      setUserInput({...userInput,
-        consumption: localConsumption,
-      })
-    );
+    dispatch(setUserInput({ ...userInput, consumption: localConsumption }));
+    const updatedParams = new URLSearchParams(searchParams);
+    updatedParams.set('consumption', String(localConsumption));
+    setSearchParams(updatedParams);
     setIsEditingConsumption(false);
   };
 

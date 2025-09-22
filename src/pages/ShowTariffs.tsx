@@ -66,7 +66,7 @@ const ShowTariffs = () => {
     );
 
     const updatedParams = new URLSearchParams(searchParams);
-    updatedParams.set('consumption', localConsumption);
+    updatedParams.set('consumption', String(localConsumption));
     setSearchParams(updatedParams);
     setIsEditingConsumption(false);
   };
@@ -119,7 +119,7 @@ const ShowTariffs = () => {
                 type="number"
                 name="consumption"
                 value={localConsumption}
-                onChange={(e) => setLocalConsumption(e.target.value)}
+                onChange={(e) => setLocalConsumption(Number(e.target.value))}
                 className="text-base border-b-2 border-gray-400 focus:outline-none focus:border-black px-2 py-1 w-20 sm:w-32"
               />
               <button

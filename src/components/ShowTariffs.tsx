@@ -1,47 +1,46 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Back from './Back';
 import TarifContainer from './TariffContainer';
-import { useSearchParams } from 'react-router-dom';
 import EnergyBenefitsShorts from './EnergyBenefitsShort';
 import TariffDetails from './TariffDetails';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserInput } from '../store/reducers/userInputsReducer';
 import type { TariffProps, UserInput } from '../types';
+import type { RootState } from '../store/store';
 
 const ShowTariffs = () => {
-  const { consumption } = useSelector((state) => state.userInput);
-  const selectedTariff = useSelector((state) => state.tariff.selected)
-  const tariffs = useSelector((state) => state.tariff.all);
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const urlLocation = searchParams.get('location') || '';
-  const urlConsumption = searchParams.get('consumption') || '';
-  const urlEnergyType = searchParams.get('energyType') || '';
+  const dispatch = useDispatch();
+  const { consumption, location } = useSelector(
+    (state: RootState) => state.userInput
+  );
+  const userInput = useSelector((state: RootState) => state.userInput)
+  const selectedTariff = useSelector(
+    (state: RootState) => state.tariff.selected
+  );
+  const tariffs = useSelector((state: RootState) => state.tariff.all);
 
   const [isEditingPostalCode, setIsEditingPostalCode] = useState(false);
   const [isEditingConsumption, setIsEditingConsumption] = useState(false);
-  const [localPostalCode, setLocalPostalCode] = useState(urlLocation);
-  const [localConsumption, setLocalConsumption] = useState(urlConsumption);
 
-
-  useEffect(() => {
-    setLocalPostalCode(urlLocation);
-    setLocalConsumption(urlConsumption);
-  }, [location, consumption]);
+  const [localPostalCode, setLocalPostalCode] = useState(location);
+  const [localConsumption, setLocalConsumption] = useState(consumption);
 
   const changeLocation = () => {
-    setUserInput((prev: UserInput) => ({ ...prev, location: localPostalCode }));
-    const updatedParams = new URLSearchParams(searchParams);
-    updatedParams.set('location', localPostalCode);
-    setSearchParams(updatedParams);
+    dispatch(
+      setUserInput({
+        ...userInput,
+        location: localPostalCode,
+      })
+    );
     setIsEditingPostalCode(false);
   };
 
   const changeConsumption = () => {
-    setUserInput((prev: UserInput) => ({ ...prev, consumption: localConsumption }));
-    const updatedParams = new URLSearchParams(searchParams);
-    updatedParams.set('consumption', localConsumption);
-    setSearchParams(updatedParams);
+    dispatch(
+      setUserInput({...userInput,
+        consumption: localConsumption,
+      })
+    );
     setIsEditingConsumption(false);
   };
 
@@ -58,7 +57,7 @@ const ShowTariffs = () => {
               <input
                 type="number"
                 name="location"
-                value={localPostalCode || urlLocation}
+                value={localPostalCode}
                 onChange={(e) => setLocalPostalCode(e.target.value)}
                 className="text-base border-b-2 border-gray-400 focus:outline-none focus:border-black px-2 py-1 w-28"
               />
@@ -93,7 +92,7 @@ const ShowTariffs = () => {
                 type="number"
                 name="consumption"
                 value={localConsumption}
-                onChange={(e) => setLocalConsumption(e.target.value)}
+                onChange={(e) => setLocalConsumption(Number(e.target.value))}
                 className="text-base border-b-2 border-gray-400 focus:outline-none focus:border-black px-2 py-1 w-20 sm:w-32"
               />
               <button

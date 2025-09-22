@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   location: '',
   energyType: '',
-  consumption: '',
+  consumption: 0,
   formSubmitted: false,
 };
 

@@ -1,20 +1,23 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedTariff } from '../store/reducers/tariffsReducer';
 import type { TarifContainerProps } from '../types';
+import {
+  calculatePrice,
+  fixCosts,
+  fixedFlexibleCosts,
+  pricePerKwh,
+} from '../utils/helper';
+import type { RootState } from '../store/store';
 
 const TarifContainer: React.FC<TarifContainerProps> = ({ tariff }) => {
   const dispatch = useDispatch();
-
-  // const price = tariff
-  //   .calculatePrice(
-  //     Number(consumption),
-  //     pricePerKwh,
-  //     tariff.duration >= 12 ? fixCosts : fixedFlexibleCosts
-  //   )
-  //   .toFixed(2);
-
   const hasBonus = tariff.duration >= 12;
+  const { consumption } = useSelector((state: RootState) => state.userInput);
 
+  
+  const costs = tariff.duration >= 12 ? fixCosts : fixedFlexibleCosts;
+  const price = calculatePrice(Number(consumption), pricePerKwh, costs);
+  
   const handleSelect = () => {
     dispatch(setSelectedTariff(tariff));
   };
@@ -36,12 +39,12 @@ const TarifContainer: React.FC<TarifContainerProps> = ({ tariff }) => {
         ) : (
           <div className="opacity-0 text-sm py-1 font-medium">Placeholder</div>
         )}
-        {/* <div className="flex items-baseline gap-2 mt-2">
+        <div className="flex items-baseline gap-2 mt-2">
           <span className="text-lg text-gray-700">Price:</span>
           <span className="text-3xl font-semibold text-blue-700">
             {price} €
           </span>
-        </div> */}
+        </div>
         <p className="text-sm text-gray-500 -mt-2">per month</p>
         <button
           onClick={handleSelect}

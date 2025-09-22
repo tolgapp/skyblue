@@ -1,13 +1,15 @@
 import { useSelector } from 'react-redux';
 import { calculatePrice, fixCosts, fixedFlexibleCosts, pricePerKwh } from '../utils/helper';
+import type { RootState } from '../store/store';
 
 const SelectedTariff = () => {
-  const selectedTariff = useSelector((state) => state.tariff.selected);
-  const {consumption} = useSelector((state) => state.tariff.all);
+  const selectedTariff = useSelector((state: RootState) => state.tariff.selected);
+  const {consumption} = useSelector((state: RootState) => state.userInput);
 
   if (!selectedTariff) return null;
 
- const monthlyPrice = calculatePrice(consumption, pricePerKwh, selectedTariff.duration > 12 ? fixCosts : fixedFlexibleCosts);;
+  const costs = selectedTariff.duration >= 12 ? fixCosts : fixedFlexibleCosts;
+  const monthlyPrice = calculatePrice(Number(consumption), pricePerKwh, costs);
 
   const yearlyPrice = monthlyPrice * 12;
 
@@ -20,7 +22,7 @@ const SelectedTariff = () => {
         <div>
           <p className="text-sm text-gray-500 mb-1">Contract Duration</p>
           <p className="text-lg font-semibold">
-            {selectedTariff.duration}{' '}
+            {selectedTariff.duration}
             {selectedTariff.duration === 1 ? 'month' : 'months'}
           </p>
         </div>

@@ -4,14 +4,30 @@ import InputField from '../components/InputField';
 import Placeholder from '../components/Placeholder';
 import SelectedTariff from '../components/SelectedTariff';
 import { useNavigate } from 'react-router-dom';
-import { calculatePrice, fixCosts, fixedFlexibleCosts, pricePerKwh } from '../utils/helper';
+import {
+  calculatePrice,
+  fixCosts,
+  fixedFlexibleCosts,
+  pricePerKwh,
+} from '../utils/helper';
 import { useSelector } from 'react-redux';
+import type { RootState } from '../store/store';
 
 const UserTariffSignUp = () => {
-  const selectedTariff = useSelector((state) => state.tariff.selected);
-  const { consumption, energyType, location } = useSelector((state) => state.userInput);
-console.log(selectedTariff)
-  const monthlyPrice = calculatePrice(consumption, pricePerKwh, selectedTariff.duration > 12 ? fixCosts : fixedFlexibleCosts);
+  const selectedTariff = useSelector(
+    (state: RootState) => state.tariff.selected
+  );
+  const { consumption, energyType, location } = useSelector(
+    (state: RootState) => state.userInput
+  );
+
+  const costs =
+    selectedTariff && selectedTariff?.duration >= 12
+      ? fixCosts
+      : fixedFlexibleCosts;
+  const monthlyPrice = selectedTariff
+    ? calculatePrice(Number(consumption), pricePerKwh, costs)
+    : 0;
   const yearlyPrice = (monthlyPrice ?? 0) * 12;
 
   const [userData, setUserData] = useState({
@@ -26,13 +42,15 @@ console.log(selectedTariff)
     bic: '',
     energyType: energyType,
     tariff: selectedTariff?.name,
-    fixCosts,
-    fixedFlexibleCosts,
+    fixCosts:
+      selectedTariff?.duration && selectedTariff.duration >= 12
+        ? fixCosts
+        : fixedFlexibleCosts,
     pricePerKwh,
     monthlyPrice: (monthlyPrice ?? 0).toFixed(2),
     yearlyPrice: yearlyPrice.toFixed(2),
-    duration: selectedTariff.duration,
-    consumption: consumption,
+    duration: selectedTariff?.duration,
+    consumption: Number(consumption),
   });
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -63,16 +81,16 @@ console.log(selectedTariff)
       bic: '',
       energyType: '',
       tariff: '',
-      fixCosts: fixCosts,
-      fixedFlexibleCosts: fixedFlexibleCosts,
+      fixCosts:
+        selectedTariff?.duration && selectedTariff.duration >= 12
+          ? fixCosts
+          : fixedFlexibleCosts,
       pricePerKwh: pricePerKwh,
       monthlyPrice: '',
       yearlyPrice: '',
       duration: selectedTariff?.duration,
-      consumption: '',
+      consumption: 0,
     });
-
-   // clearUserInputs();
 
     navigate('/');
   };

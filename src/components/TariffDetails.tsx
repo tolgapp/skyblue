@@ -77,12 +77,14 @@ const TariffDetails = () => {
         >
           Back to overview
         </button>
-        <Link
-          to={'/tariff-signup'}
-          className="px-5 py-2 bg-blue-800 text-white rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer text-center"
-        >
-          This is my selectedTariff →
-        </Link>
+        {consumption > 100 && (
+          <Link
+            to={'/tariff-signup'}
+            className="px-5 py-2 bg-blue-800 text-white rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer text-center"
+          >
+            This is my Tariff →
+          </Link>
+        )}
       </div>
     </section>
   );

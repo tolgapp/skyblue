@@ -8,8 +8,12 @@ import { setUserInput } from '../store/reducers/userInputsReducer';
 import type { TariffProps } from '../types';
 import type { RootState } from '../store/store';
 import { useSearchParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ShowTariffs = () => {
+  const notify = (message: string, type: 'error' | 'info' | 'success') =>
+    toast[type](message);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { consumption, location } = useSelector(
@@ -28,6 +32,12 @@ const ShowTariffs = () => {
   const [localConsumption, setLocalConsumption] = useState(consumption);
 
   const changeLocation = () => {
+
+     if (!/^\d{5}$/.test(localPostalCode)) {
+       notify('Location must be exactly 5 digits', 'error');
+       return;
+     }
+
     const newUserInput = {
       ...userInput,
       location: localPostalCode,
@@ -48,6 +58,11 @@ const ShowTariffs = () => {
   };
 
   const changeConsumption = () => {
+    if (localConsumption <= 100) {
+      notify('Consumption should be greater than 100 kWh!', 'error');
+      return;
+    }
+
     const newUserInput = {
       ...userInput,
       consumption: localConsumption,
@@ -147,6 +162,18 @@ const ShowTariffs = () => {
       </div>
       {selectedTariff && <TariffDetails />}
       <EnergyBenefitsShorts marginX={0} marginTop={1} />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3200}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </main>
   );
 };

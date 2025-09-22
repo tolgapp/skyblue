@@ -2,12 +2,15 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUserInput } from '../store/reducers/userInputsReducer';
 import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
 const energyOptions = ['Electricity', 'Gas', 'Kombi'];
 
 const Calculator = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const notify = (message: string, type: 'error' | 'info' | 'success') =>
+    toast[type](message);
 
   const [formData, setFormData] = useState({
     location: '',
@@ -21,39 +24,61 @@ const Calculator = () => {
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-
     dispatch(setUserInput({ [name]: value }));
   };
 
   const getUserInputs = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Validation of location and consumption
+    if (!/^\d{5}$/.test(formData.location)) {
+      notify('Location must be exactly 5 digits', 'error');
+      return;
+    }
+
+    if (formData.energyType !== 'Electricity') {
+      notify('Currently only Electricity available', 'info');
+      return;
+    }
+
+    if (
+      isNaN(Number(formData.consumption)) ||
+      Number(formData.consumption) <= 100
+    ) {
+      notify('Consumption must be greater than 100', 'error');
+      return;
+    }
+
     const queryParams = new URLSearchParams({
       location: formData.location,
       consumption: formData.consumption,
-      energyType: formData.energyType
-    })
+      energyType: formData.energyType,
+    });
 
-     dispatch(
-       setUserInput({
-         location: formData.location,
-         consumption: formData.consumption,
-         energyType: formData.energyType,
-         formSubmitted: true, 
-       })
-     );
+    dispatch(
+      setUserInput({
+        location: formData.location,
+        consumption: formData.consumption,
+        energyType: formData.energyType,
+        formSubmitted: true,
+      })
+    );
 
-     localStorage.setItem(
-       'userInput',
-       JSON.stringify({
-         location: formData.location,
-         consumption: formData.consumption,
-         energyType: formData.energyType,
-         formSubmitted: true,
-       })
-     );
+    localStorage.setItem(
+      'userInput',
+      JSON.stringify({
+        location: formData.location,
+        consumption: formData.consumption,
+        energyType: formData.energyType,
+        formSubmitted: true,
+      })
+    );
 
+    // Navigation mit Query-Parametern
     navigate(`/findtariff?${queryParams.toString()}`);
+
+    // Erfolgsbenachrichtigung nach Absenden
+    notify('Tariffs are being fetched...', 'success');
   };
 
   const submitted =
@@ -97,8 +122,11 @@ const Calculator = () => {
                 name="energyType"
                 onClick={() =>
                   handleChange({
-                    target: { name: 'energyType', value: type },
-                  } as any)
+                    target: {
+                      name: 'energyType',
+                      value: type,
+                    } as HTMLInputElement,
+                  } as React.ChangeEvent<HTMLInputElement>)
                 }
                 className={`cursor-pointer px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-sm sm:text-base w-full transition font-semibold shadow-sm border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-600 ${
                   type === formData.energyType
@@ -140,6 +168,18 @@ const Calculator = () => {
           </div>
         )}
       </form>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3200}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

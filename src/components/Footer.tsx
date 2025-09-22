@@ -8,8 +8,12 @@ const Footer = () => {
         <Logo />
         <div className="flex items-center gap-3">
           <h3>A project by </h3>
-          <Link to='https://www.tolgapp.de'>
-          <img src="/images/tolgapp-logo-light.png" alt="tolgapp logo light" className='w-14 h-auto border p-1 rounded-lg cursor-pointer hover:scale-105'/>
+          <Link to="https://www.tolgapp.de">
+            <img
+              src="/images/tolgapp-logo-light.png"
+              alt="tolgapp logo light"
+              className="w-14 h-auto border p-1 rounded-lg cursor-pointer hover:scale-105"
+            />
           </Link>
         </div>
       </div>

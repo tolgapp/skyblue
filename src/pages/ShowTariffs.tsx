@@ -32,11 +32,10 @@ const ShowTariffs = () => {
   const [localConsumption, setLocalConsumption] = useState(consumption);
 
   const changeLocation = () => {
-
-     if (!/^\d{5}$/.test(localPostalCode)) {
-       notify('Location must be exactly 5 digits', 'error');
-       return;
-     }
+    if (!/^\d{5}$/.test(localPostalCode)) {
+      notify('Location must be exactly 5 digits', 'error');
+      return;
+    }
 
     const newUserInput = {
       ...userInput,

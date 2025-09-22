@@ -27,14 +27,18 @@ const benefits = [
 
 const EnergyBenefitsShort = ({ marginX, marginTop }: EnergyBenefitsProps) => {
   return (
-    <div className={`grid grid-cols-1 mt-${marginTop} mx-${marginX} md:grid-cols-3 gap-6 p-4 sm:p-10 bg-blue-400 rounded-xl`}>
+    <div
+      className={`grid grid-cols-1 mt-${marginTop} mx-${marginX} md:grid-cols-3 gap-6 p-4 sm:p-10 bg-blue-400 rounded-xl`}
+    >
       {benefits.map((benefit, index) => (
         <div
           key={index}
           className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md"
         >
           {benefit.icon}
-          <h3 className="text-xl font-bold mt-4 text-blue-950">{benefit.title}</h3>
+          <h3 className="text-xl font-bold mt-4 text-blue-950">
+            {benefit.title}
+          </h3>
           <p className="text-gray-600 mt-2">{benefit.description}</p>
           <button className="mt-4 bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
             {benefit.buttonText}

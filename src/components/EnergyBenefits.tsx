@@ -33,7 +33,9 @@ const benefits = [
 
 const EnergyBenefits = ({ marginX, marginTop }: EnergyBenefitsProps) => {
   return (
-    <div className={`space-y-12 flex flex-col mt-${marginTop} px-4 sm:px-${marginX}`}>
+    <div
+      className={`space-y-12 flex flex-col mt-${marginTop} px-4 sm:px-${marginX}`}
+    >
       {benefits.map((benefit, index) => {
         const isEven = index % 2 === 0;
 
@@ -59,7 +61,9 @@ const EnergyBenefits = ({ marginX, marginTop }: EnergyBenefitsProps) => {
               <h3 className="text-xl sm:text-4xl font-bold text-blue-900">
                 {benefit.title}
               </h3>
-              <p className="text-gray-700 text-md sm:text-2xl">{benefit.description}</p>
+              <p className="text-gray-700 text-md sm:text-2xl">
+                {benefit.description}
+              </p>
               <button className="mt-2 bg-blue-800 text-white px-3 sm:px-6 py-2 rounded hover:bg-blue-700 transition">
                 {benefit.buttonText}
               </button>

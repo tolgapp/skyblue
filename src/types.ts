@@ -3,7 +3,7 @@ export type TarifContainerProps = {
 };
 
 export type TariffProps = {
-  id: string,
+  id: string;
   name: string;
   duration: number;
   durationText: string;
@@ -12,7 +12,6 @@ export type TariffProps = {
 export type ProductDetailsProps = {
   tariff: TariffProps;
 };
-
 
 export type InputFieldProps = {
   label: string;
@@ -36,7 +35,7 @@ export type TariffContextType = {
 export type EnergyBenefitsProps = {
   marginX: number;
   marginTop: number;
-}
+};
 
 export type UserInput = {
   consumption: string;

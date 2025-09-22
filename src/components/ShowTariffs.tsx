@@ -126,7 +126,7 @@ const ShowTariffs = () => {
           <TarifContainer key={tariff.id} tariff={tariff} />
         ))}
       </div>
-      {selectedTariff && <TariffDetails tariff={selectedTariff} />}
+      {selectedTariff && <TariffDetails />}
       <EnergyBenefitsShorts marginX={0} marginTop={1} />
     </main>
   );

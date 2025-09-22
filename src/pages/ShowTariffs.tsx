@@ -13,9 +13,6 @@ const ShowTariffs = () => {
   const tariffs = useSelector((state: RootState) => state.tariff);
   const userInput = useSelector((state: RootState) => state.userInput);
 
-    console.log('ST', userInput);
-
-
   const [isEditingPostalCode, setIsEditingPostalCode] = useState(false);
   const [isEditingConsumption, setIsEditingConsumption] = useState(false);
   const [localPostalCode, setLocalPostalCode] = useState(userInput.location);

@@ -1,9 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+const loadFromLocalStorage = () => {
+  try {
+    const data = localStorage.getItem('userInput');
+    return data ? JSON.parse(data) : null;
+  } catch {
+    return null;
+  }
+};
+
+const initialState = loadFromLocalStorage() || {
   location: '',
   energyType: '',
-  consumption: 0,
+  consumption: '',
   formSubmitted: false,
 };
 

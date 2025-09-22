@@ -14,12 +14,12 @@ const TarifContainer: React.FC<TarifContainerProps> = ({ tariff }) => {
   const hasBonus = tariff.duration >= 12;
   const { consumption } = useSelector((state: RootState) => state.userInput);
 
-  
   const costs = tariff.duration >= 12 ? fixCosts : fixedFlexibleCosts;
   const price = calculatePrice(Number(consumption), pricePerKwh, costs);
-  
+
   const handleSelect = () => {
     dispatch(setSelectedTariff(tariff));
+    localStorage.setItem('selectedTariff', JSON.stringify(tariff));
   };
 
   return (

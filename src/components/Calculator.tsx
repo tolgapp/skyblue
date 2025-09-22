@@ -43,6 +43,16 @@ const Calculator = () => {
        })
      );
 
+     localStorage.setItem(
+       'userInput',
+       JSON.stringify({
+         location: formData.location,
+         consumption: formData.consumption,
+         energyType: formData.energyType,
+         formSubmitted: true,
+       })
+     );
+
     navigate(`/findtariff?${queryParams.toString()}`);
   };
 

@@ -6,6 +6,15 @@ interface TariffState {
   selected: TariffProps | null;
 }
 
+const loadFromLocalStorage = () => {
+  try {
+    const data = localStorage.getItem('selectedTariff');
+    return data ? JSON.parse(data) : null;
+  } catch {
+    return null;
+  }
+};
+
 const initialState: TariffState = {
   all: [
     {
@@ -27,7 +36,7 @@ const initialState: TariffState = {
       durationText: '24 months',
     },
   ],
-  selected: null,
+  selected: loadFromLocalStorage() || null,
 };
 
 const tariffReducer = createSlice({

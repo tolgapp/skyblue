@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar';
-import ShowTariffs from './components/ShowTariffs';
+import ShowTariffs from './pages/ShowTariffs';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Footer from './components/Footer';

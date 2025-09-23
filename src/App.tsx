@@ -5,12 +5,13 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 import UserTariffSignUp from './pages/UserTariffSignUp';
 import NotFound from './components/NotFound';
+import { Analytics } from '@vercel/analytics/next';
 
 const App = () => {
-  // TODO: Responsive Design
 
   return (
     <>
+      <Analytics />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

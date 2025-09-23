@@ -12,10 +12,13 @@ Sky Blue Energy is a simple React app that helps users find the best energy tari
 
 ## Tech Stack
 
-- React (with Context API)
+- React
 - TypeScript
+- Redux React + Toolkit 
 - Tailwind CSS
+- Toastify for Error + Info Messages 
 - Vite
+- Github CI
 
 ## Getting Started
 

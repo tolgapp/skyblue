@@ -12,6 +12,7 @@ const InputField = ({
       {label}
     </label>
     <input
+      id={name}
       type={type}
       name={name}
       placeholder={`Enter ${label.toLowerCase()}`}

@@ -5,9 +5,11 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 import UserTariffSignUp from './pages/UserTariffSignUp';
 import NotFound from './components/NotFound';
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from '@vercel/analytics/react';
 
 const App = () => {
+
+// TODO: create tests with vitest / jsdom
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+ import { useState } from 'react';
 import Back from '../components/Back';
 import TarifContainer from '../components/TariffContainer';
 import EnergyBenefitsShorts from '../components/EnergyBenefitsShort';

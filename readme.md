@@ -1,4 +1,4 @@
-# Sky Blue Energy
+# Blue Energy
 
 Sky Blue Energy is a simple React app that helps users find the best energy tariffs based on their location, energy type, and consumption. Users can compare up to three tariffs, view details, and sign up for their preferred option.
 

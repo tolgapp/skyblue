@@ -103,7 +103,7 @@ const UserTariffSignUp = () => {
         {currentStep === 1 && (
           <div className="flex flex-col justify-start w-full px-4 sm:px-18 gap-8">
             <h2 className="text-4xl font-[OpenSansVar] font-medium">
-              Where goes the positive energy tariff?
+              Where is the positive energy tariff going?
             </h2>
             <form className="flex flex-col sm:grid sm:grid-rows-2 sm:grid-cols-2 gap-4 sm:gap-8">
               {/* Address fields */}
